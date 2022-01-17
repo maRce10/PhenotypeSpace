@@ -1,7 +1,7 @@
 # PhenotypeSpace: Quantifying trait spaces
 
 
-[PhenotypeSpace](https://github.com/maRce10/PhenotypeSpace) is intended to facilitate the quantification of trait space features.
+[PhenotypeSpace](https://github.com/maRce10/PhenotypeSpace) is intended to facilitate the quantification of phenotypic space features.
 
  The package offers functions for:
    - Estimate absolute values of trait spaces
