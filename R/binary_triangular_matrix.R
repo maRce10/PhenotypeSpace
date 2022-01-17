@@ -1,0 +1,60 @@
+#' @title Get binary triangular matrices
+#'
+#' @description \code{binary_triangular_matrix} creates binary triangular matrices representing categorical data in a distance matrix form
+#' @usage binary_triangular_matrix(group, labels = NULL)
+#' @param group Character vector or factor containing categories to be represented as a pairwise binary matrix. Several observations per categories (at least some categories) are required. 
+#' @param labels Character vector or factor containing labels to be used for rows/columns in the output matrix. Optional. Default is \code{NULL}.
+#' @return  A pairwise distance matrix that represents group membership. See details.
+#' @export
+#' @name binary_triangular_matrix
+#' @details The function creates binary triangular matrices representing categorical data in a pairwise distance matrix form. Such matrices represent group membership by assiging 0 to pairs of observations that belong to the same category (individual, group, population) and 1 to those belonging to different categories. Binary pairwise matrices can be useful to evaluate association between a categorical and continuous variable (represented as pairwise distances) using Mantel test (as in Araya-Salas et al. 2019). 
+#' @examples {
+#' # create 3 groups each one with 2 observations
+#' groups <- paste0("G", rep(1:3, each = 2))
+#' # create binary matrix
+#' binary_triangular_matrix(group = groups)
+#' 
+#' # create binary matrix using labels
+#' binary_triangular_matrix(group = groups, labels = paste(groups, 1:6, sep = "-"))
+#' }
+#' @seealso \code{\link{distance_to_rectangular}}, \code{\link{rectangular_to_triangular}}
+#' @author Marcelo Araya-Salas \email{marcelo.araya@@ucr.ac.cr})
+#'
+#' @references {
+#' Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: quantifying phenotypic trait spaces. R package version 0.1.0.
+#' Araya-Salas M, G Smith-vidaurre,  D Mennill, P González-Gómez, J Cahill & T Wright. 2019. Social group signatures in hummingbird displays provide evidence of co-occurrence of vocal and visual learning. Proceedings of the Royal Society B. 286: 20190666.
+#' }
+# last modification on jan-2022 (MAS)
+
+binary_triangular_matrix <- function(group, labels = NULL) {
+  # group = group of rows/columns belonging to the same level
+  # labels = labels to use in rows and columns, cannot have duplicates
+  
+  # check group
+  if (!anyDuplicated(group)) 
+    stop("'group' must have duplicates (more than 1 observation in some groups)")
+  
+  # check labels
+  if (!is.null(labels))
+    if (anyDuplicated(labels)) 
+      stop("Cannot have duplicated labels")
+    
+  # create new mat
+  mat <- matrix(nrow = length(group), ncol = length(group))  
+  
+  # with only NA
+  mat[!is.na(mat)] <- NA
+  
+  # fill it out with 0s and 1s 
+  for(i in 1:ncol(mat))
+    for(j in 1:length(mat[,i]))
+      if (group[j] == group[i]) mat[j, i] <- 0 else mat[j, i] <- 1
+  
+  # rename cols and rows (rows cannot be duplicated)
+  if (is.null(labels)){
+    rownames(mat) <- paste0(group, " (row ", 1:nrow(mat), ")")
+  colnames(mat) <- group
+  } else rownames(mat) <- colnames(mat) <- labels
+  
+  return(mat)      
+}

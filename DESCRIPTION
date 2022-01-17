@@ -1,0 +1,18 @@
+Package: PhenotypeSpace
+Type: Package
+Title: Quantifying phenotypic spaces
+Version: 0.1.0
+Maintainer: Marcelo Araya-Salas <marcelo.araya@ucr.ac.cr>
+Description: Facilitates quantifying of phenotypic spaces and comparing spaces across groups. 
+License: GPL (>= 2)
+Encoding: UTF-8
+URL: https://marce10.github.io/PhenotypeSpace/
+BugReports: https://github.com/maRce10/PhenotypeSpace/issues/
+VignetteBuilder: knitr, rmarkdown
+RoxygenNote: 7.1.1
+Repository: CRAN
+Language: en-US
+Authors@R: c(person("Marcelo", "Araya-Salas", role = c("aut", "cre"), email = "marcelo.araya@ucr.ac.cr", comment = c(ORCID = "0000-0003-3594-619X")))
+Date/Publication: 2016-04-19 08:12:11
+Imports: pbapply, viridis, adehabitatHR, sp, stats, spatstat, raster, rgeos, MASS, knitr, vegan, spatstat.core, spatstat.geom
+Depends: R (>= 4.0.0), warbleR
