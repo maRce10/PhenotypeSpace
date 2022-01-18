@@ -67,7 +67,7 @@ rarefact_space_overlap <- function(X, dimensions, group, n = NULL, replace = FAL
     if (!is.null(seed))
       set.seed(seed + e)
     
-    raref_indices <- unlist(lapply(unique(X[, group]), function(x)
+    raref_indices <- unlist(lapply(sort(unique(X[, group])), function(x)
       sample(X$...rownames[X[, group] == x], n, replace = replace)
     ))
     
@@ -88,7 +88,7 @@ rarefact_space_overlap <- function(X, dimensions, group, n = NULL, replace = FAL
       type <- "mcp" # default value in space_overlap()
   
   # create output data frame
-  if (type %in% c("mean.density", "mean.mcp", "std.centroid.dist", "proportional")){
+  if (type %in% c("mean.density", "mean.mcp", "std.centroid.dist", "proportional", "distance")){
   results$mean.overlap <- rowMeans(space_overlaps_mat)
   results$min.overlap <- apply(X = space_overlaps_mat, MARGIN = 1, FUN = min)  
   results$max.overlap <- apply(X = space_overlaps_mat, MARGIN = 1, FUN = max)  

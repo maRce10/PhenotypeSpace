@@ -64,7 +64,7 @@ rarefact_space_size <- function(X, dimensions, group, n = NULL, replace = FALSE,
     if (!is.null(seed))
       set.seed(seed + e)
     
-    raref_indices <- unlist(lapply(unique(X[, group]), function(x)
+    raref_indices <- unlist(lapply(sort(unique(X[, group])), function(x)
       sample(X$...rownames[X[, group] == x], n, replace = replace)
     ))
     

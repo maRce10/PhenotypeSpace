@@ -46,18 +46,18 @@ rectangular_to_triangular <- function(X, distance = TRUE, symmetric = TRUE){
     stop("'X' must have at least 2 numeric columns when `symmetric = FALSE`")
 
   # get groups
-  groups <- unique(c(X[, 1], X[, 2]))
+  groups <- sort(unique(c(X[, 1], X[, 2])))
   
   mat <- matrix(nrow = length(groups), ncol = length(groups))
   
-  colnames(mat) <- rownames(mat) <- sort(groups)
+  colnames(mat) <- rownames(mat) <- groups
   
   for (i in 1:nrow(X)) {
     
-    mat[X[i, 1], X[i, 2]] <- X[i, 3]
+    mat[colnames(mat) == X[i, 1], colnames(mat) ==X[i, 2]] <- X[i, 3]
     
     
-    mat[X[i, 2], X[i, 1]] <- if (symmetric) X[i, 3] else 
+    mat[colnames(mat) == X[i, 2], colnames(mat) ==X[i, 1]] <- if (symmetric) X[i, 3] else 
         X[i, 4]
   }
   

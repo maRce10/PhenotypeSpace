@@ -203,7 +203,7 @@ space_overlap <- function(X, dimensions, group, parallel = 1, type = "mcp", pb =
 
   
   # get all combinations to get pairwise overlaps
-  group_combs <- t(utils::combn(unique(X[, group]), 2))
+  group_combs <- t(utils::combn(sort(unique(X[, group])), 2))
   
   # calculate all areas
   ovlps_l <- warbleR:::pblapply_wrblr_int(1:nrow(group_combs), pbar = pb,  cl = parallel, function(i, data = input_data, gc = group_combs, dims = dimensions, typ = type) {
@@ -222,7 +222,7 @@ space_overlap <- function(X, dimensions, group, parallel = 1, type = "mcp", pb =
 
     # put in a data frame
     
-    out_df <- if (type %in% c("mean.density", "mean.mcp", "std.centroid.dist", "proportional")) 
+    out_df <- if (type %in% c("mean.density", "mean.mcp", "std.centroid.dist", "proportional", "distance")) 
       data.frame(group.1 = gc[i, 1], group.2 = gc[i, 2], overlap = mean(overlaps)) else
         data.frame(group.1 = gc[i, 1], group.2 = gc[i, 2], overlap.1in2 = overlaps[2], overlap.2in1 = overlaps[1]) 
     

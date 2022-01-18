@@ -46,7 +46,7 @@
 
 space_size_difference <- function(X, dimensions, group, parallel = 1, type = "mcp", pb = TRUE, outliers = 0.95, proportional = FALSE, ...){
   
-  group_combs <- t(utils::combn(unique(X[, group]), 2))
+  group_combs <- t(utils::combn(sort(unique(X[, group])), 2))
   
   propspace_size_diff_list <- lapply(1:nrow(group_combs), function(x){
     
