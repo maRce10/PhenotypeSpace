@@ -12,11 +12,11 @@
 #' @param parallel Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).
 #' @param pb Logical argument to control if progress bar is shown. Default is \code{TRUE}.
 #' @param iterations Integer vector of length 1. Controls how the number of times the rarefaction routine is iterated. Default is 30.
-#' @param ...
-#' @return
+#' @param ... Additional arguments to be passed to \code{\link{space_size}}.
+#' @return A data frame containing the mean, minimum, maximum and standard deviation of the size difference across iterations for each pair of groups.
 #' @export
 #' @name rarefact_space_size
-#' @details   
+#' @details The function applies a rarefaction sub-sampling procedure for evaluating pairwise space size differences (internally using \code{\link{space_size}}). The size of a phenotypic space might change as a function of number of samples. Hence, ideally, spaces should be compared between groups of similar sample sizes. Rarefaction allows to compare groups of unbalanced sample sizes by randomly re-sampling observations using the same number samples across groups iteratively.  
 #' @examples {
 #' # load data
 #' data("example_space")
@@ -36,7 +36,7 @@
 #' group = "ID",
 #' type = "mst")
 #' }
-#' @seealso \code{\link{rarefact_space_overlap}}, \code{\link{space_size_difference}}
+#' @seealso \code{\link{rarefact_space_similarity}}, \code{\link{space_size_difference}}
 #' @author Marcelo Araya-Salas \email{marcelo.araya@@ucr.ac.cr})
 #'
 #' @references {

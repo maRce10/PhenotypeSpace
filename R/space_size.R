@@ -5,19 +5,24 @@
 #'
 #' @description \code{space_size}
 #' @usage space_size(X, dimensions = NULL, group, parallel = 1, type = "mcp", 
-#' pb = TRUE, outliers = 0.95, proportional = FALSE, ...)
+#' pb = TRUE, outliers = 0.95, ...)
 #' @param X Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels. 
 #' @param dimensions Character vector with the names of columns containing the dimensions of the phenotypic space.
 #' @param group Character vector with the name of the column (character or factor) containing group labels.
 #' @param parallel Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).
-#' @param type
+#' @param type Character vector of length 1. Controls the type of metric to be used for quantifying space size. Three metrics are available:
+#' \itemize{
+#'  \item \code{mcp}: minimum convex polygon area using the function  \code{\link[adehabitatHR]{mcp}}. The minimum sample size (per group) must be 2 observations.
+#'  \item \code{density}: kernel density area using the function \code{\link[adehabitatHR]{kernelUD}}. The minimum sample size (per group) must be 6 observations.
+#'  \item \code{mst}: minimum spanning tree using the function \code{\link[vegan]{spantree}}. The minimum sample size (per group) must be 5 observations. This method is expected to be more robust to the influence of outliers.
+#'  }
 #' @param pb Logical argument to control if progress bar is shown. Default is \code{TRUE}.
-#' @param outliers
-#' @param iterations Integer vector of length 1. Controls how the number of times the rarefaction routine is iterated. Default is 30.
-#' @return
-#' @export
+#' @param outliers Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.
+#' @param ... Additional arguments to be passed to \code{\link[adehabitatHR]{kernelUD}} for kernel density estimation (when  \code{type = 'density'}.
+#' @return A data frame containing the phenotypic space size for each group.
+#' @export   
 #' @name space_size
-#' @details   
+#' @details The function quantifies the size of the phenotypic sub-spaces.
 #' @examples {
 #' # load data
 #' data("example_space")
@@ -50,7 +55,7 @@
 #' Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: quantifying phenotypic trait spaces. R package version 0.1.0.
 #' }
 # last modification on jan-2022 (MAS)
-space_size <- function(X, dimensions = NULL, group, parallel = 1, type = "mcp", pb = TRUE, outliers = 0.95, proportional = FALSE, ...) {
+space_size <- function(X, dimensions = NULL, group, parallel = 1, type = "mcp", pb = TRUE, outliers = 0.95, ...) {
   
   if (!type %in% c("mst", "mcp", "density"))
     stop("'type' must be either 'mcp', 'mst' or 'density'")
@@ -115,10 +120,6 @@ space_size <- function(X, dimensions = NULL, group, parallel = 1, type = "mcp", 
   
   # rename rows
   row.names(sizes) <- 1:nrow(sizes)
-  
-  # make it proportional to largest area
-  if (proportional)
-    sizes$size <- sizes$size / max(sizes$size, na.rm = TRUE)
   
   return(sizes)
 }

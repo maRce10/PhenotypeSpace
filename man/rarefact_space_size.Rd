@@ -25,15 +25,17 @@ seed = NULL, parallel = 1, pb = TRUE, iterations = 30,...)
 \item{pb}{Logical argument to control if progress bar is shown. Default is \code{TRUE}.}
 
 \item{iterations}{Integer vector of length 1. Controls how the number of times the rarefaction routine is iterated. Default is 30.}
+
+\item{...}{Additional arguments to be passed to \code{\link{space_size}}.}
 }
 \value{
-
+A data frame containing the mean, minimum, maximum and standard deviation of the size difference across iterations for each pair of groups.
 }
 \description{
 \code{rarefact_space_size}
 }
 \details{
-
+The function applies a rarefaction sub-sampling procedure for evaluating pairwise space size differences (internally using \code{\link{space_size}}). The size of a phenotypic space might change as a function of number of samples. Hence, ideally, spaces should be compared between groups of similar sample sizes. Rarefaction allows to compare groups of unbalanced sample sizes by randomly re-sampling observations using the same number samples across groups iteratively.
 }
 \examples{
 {
@@ -62,7 +64,7 @@ Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: quantifying phenotypic trait sp
 }
 }
 \seealso{
-\code{\link{rarefact_space_overlap}}, \code{\link{space_size_difference}}
+\code{\link{rarefact_space_similarity}}, \code{\link{space_size_difference}}
 }
 \author{
 Marcelo Araya-Salas \email{marcelo.araya@ucr.ac.cr})

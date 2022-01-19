@@ -2,11 +2,11 @@
 
 export(binary_triangular_matrix)
 export(distance_to_rectangular)
-export(rarefact_space_overlap)
+export(rarefact_space_similarity)
 export(rarefact_space_size)
 export(rarefact_space_size_difference)
 export(rectangular_to_triangular)
-export(space_overlap)
+export(space_similarity)
 export(space_size)
 export(space_size_difference)
 import(parallel)

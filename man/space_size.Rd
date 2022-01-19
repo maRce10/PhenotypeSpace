@@ -5,7 +5,7 @@
 \title{Estimates the size of phenotypic spaces}
 \usage{
 space_size(X, dimensions = NULL, group, parallel = 1, type = "mcp", 
-pb = TRUE, outliers = 0.95, proportional = FALSE, ...)
+pb = TRUE, outliers = 0.95, ...)
 }
 \arguments{
 \item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
@@ -16,18 +16,27 @@ pb = TRUE, outliers = 0.95, proportional = FALSE, ...)
 
 \item{parallel}{Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).}
 
+\item{type}{Character vector of length 1. Controls the type of metric to be used for quantifying space size. Three metrics are available:
+\itemize{
+ \item \code{mcp}: minimum convex polygon area using the function  \code{\link[adehabitatHR]{mcp}}. The minimum sample size (per group) must be 2 observations.
+ \item \code{density}: kernel density area using the function \code{\link[adehabitatHR]{kernelUD}}. The minimum sample size (per group) must be 6 observations.
+ \item \code{mst}: minimum spanning tree using the function \code{\link[vegan]{spantree}}. The minimum sample size (per group) must be 5 observations. This method is expected to be more robust to the influence of outliers.
+ }}
+
 \item{pb}{Logical argument to control if progress bar is shown. Default is \code{TRUE}.}
 
-\item{iterations}{Integer vector of length 1. Controls how the number of times the rarefaction routine is iterated. Default is 30.}
+\item{outliers}{Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.}
+
+\item{...}{Additional arguments to be passed to \code{\link[adehabitatHR]{kernelUD}} for kernel density estimation (when  \code{type = 'density'}.}
 }
 \value{
-
+A data frame containing the phenotypic space size for each group.
 }
 \description{
 \code{space_size}
 }
 \details{
-
+The function quantifies the size of the phenotypic sub-spaces.
 }
 \examples{
 {

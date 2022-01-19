@@ -12,14 +12,14 @@ n.dimensions = 2, metric = TRUE, ...)
 
 \item{labels}{Character vector or factor containing labels to be used for rows/columns in the output data frame. Default is \code{names(distance.matrix)}. Must be the same length as the number of observations in 'distance.matrix'.}
 
+\item{n.dimensions}{Integer vector of length 1 indicating the number of of dimensions to represent distances in a new space. Default is 2.}
+
 \item{metric}{Logical argument to control if Metric (a.k.a. Classical, \code{TRUE}, default) or Non-Metric MUltidimensional Scaling (\code{FALSE}) is used to project in a new n-dimension space. Non-Metric MDS is conducted using the function \code{\link[MASS]{isoMDS}} while Classical MDS uses the function \code{\link[stats]{cmdscale}}. So yes, it is a silly wrapper over those 2 functions.}
 
 \item{...}{Additional arguments to be passed to \code{\link[MASS]{isoMDS}}.}
-
-\item{n}{Integer vector of length 1 indicating the number of samples to be use for rarefaction (i.e. how many samples per group will be gather at each iteration). Default is the minimum sample size across groups..dimensions An integer vector of length 1 with the number of dimensions to be used to represent the data (number of vectors in the output data frame). Default is 2.}
 }
 \value{
-A data frame with the new dimensions representing the position of observations in a new n-dimesion space. If \code{metric = FALSE} the output data frame is embedded in a list that also includes the stress value.
+A data frame with the new dimensions representing the position of observations in a new n-dimension space. If \code{metric = FALSE} the output data frame is embedded in a list that also includes the stress value.
 }
 \description{
 \code{distance_to_rectangular} converts binary triangular matrices to rectangular matrices using Multidimensional Scaling.
