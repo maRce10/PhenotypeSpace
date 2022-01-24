@@ -8,7 +8,7 @@ distance_to_rectangular(distance.matrix, labels = names(distance.matrix),
 n.dimensions = 2, metric = TRUE, ...)
 }
 \arguments{
-\item{distance.matrix}{Distance matrix (i.e. object of class 'dist'). Can be created using the function \code{\link[stats]{dist}} or coverted to using  \code{\link[stats]{as.dist}}.}
+\item{distance.matrix}{Distance matrix (i.e. object of class 'dist'). Can be created using the function \code{\link[stats]{dist}} or converted to using  \code{\link[stats]{as.dist}}.}
 
 \item{labels}{Character vector or factor containing labels to be used for rows/columns in the output data frame. Default is \code{names(distance.matrix)}. Must be the same length as the number of observations in 'distance.matrix'.}
 
@@ -25,7 +25,7 @@ A data frame with the new dimensions representing the position of observations i
 \code{distance_to_rectangular} converts binary triangular matrices to rectangular matrices using Multidimensional Scaling.
 }
 \details{
-It is a silly wrapper over 2 multidimensional scaling functions (\code{\link[MASS]{isoMDS}} and \code{\link[stats]{cmdscale}}) that simplifies the calculation of Multidimensional Scaling and formating of its output to be used with other functions in the package.
+It is a silly wrapper over 2 multidimensional scaling functions (\code{\link[MASS]{isoMDS}} and \code{\link[stats]{cmdscale}}) that simplifies the calculation of Multidimensional Scaling and formatting of its output to be used with other functions in the package.
 }
 \examples{
 {

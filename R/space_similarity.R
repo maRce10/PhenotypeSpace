@@ -18,7 +18,7 @@
 #'  \item \code{centroid.distance}: euclidean distance between the centroid of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
 #'  }
 #' @param pb Logical argument to control if progress bar is shown. Default is \code{TRUE}.
-#' @param outliers Numeric vector of length 1. A value between 0 and 1 controling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.
+#' @param outliers Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.
 #' @param pairwise.scale Logical argument to control if pairwise phenotypic spaces are scaled (i.e. z-transformed) prior to similarity estimation. If so (\code{TRUE}) similarities are decoupled from the size of the global phenotypic space. Useful to compare similarities coming from different phenotypic spaces. Default is \code{FALSE}. Not available for 'density.overlap' and 'mean.density.overlap'.
 #' @return A data frame containing the similarity metric for each pair of groups. If the similarity metric is not symmetric (e.g. the proportional area of A that overlaps B is not necessarily the same as the area of B that overlaps A, see \code{\link{space_similarity}}) separated columns are supplied for the two comparisons.  
 #' @export

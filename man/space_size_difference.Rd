@@ -25,7 +25,7 @@ pb = TRUE, outliers = 0.95, ...)
 
 \item{pb}{Logical argument to control if progress bar is shown. Default is \code{TRUE}.}
 
-\item{outliers}{Numeric vector of length 1. A value between 0 and 1 controling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.}
+\item{outliers}{Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.}
 
 \item{...}{Additional arguments to be passed to \code{\link{space_size}} for customizing space size calculation.}
 }

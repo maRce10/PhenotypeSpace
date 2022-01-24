@@ -14,7 +14,7 @@
 #'  \item \code{mst}: minimum spanning tree using the function \code{\link[vegan]{spantree}}. The minimum sample size (per group) must be 5 observations. This method is expected to be more robust to the influence of outliers.
 #'  }
 #' @param pb Logical argument to control if progress bar is shown. Default is \code{TRUE}.
-#' @param outliers Numeric vector of length 1. A value between 0 and 1 controling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.
+#' @param outliers Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.
 #' @param ... Additional arguments to be passed to \code{\link{space_size}} for customizing space size calculation.
 #' @return A data frame containing the space size difference for each pair of groups. 
 #' @export

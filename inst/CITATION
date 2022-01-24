@@ -1,0 +1,11 @@
+citHeader("Please cite 'ohun' as follows:")
+
+citEntry(entry = "MISC",
+        title = "ohun: automatic detection of acoustic signals",
+        author = personList(as.person("M. Araya-Salas"),as.person("K. Odom")),
+        year = "2022",
+#        journal = "Methods in Ecology and Evolution",
+#        url = "http://dx.doi.org/10.1111/2041-210X.12624",
+        textVersion = "Araya-Salas, M., and K. Odom. 2022. PhenotypeSpace: and R package to quantify and compare phenotypic trait spaces. R package version 0.1.0."
+)
+

@@ -29,7 +29,7 @@ pb = TRUE, outliers = 0.95, pairwise.scale = FALSE)
 
 \item{pb}{Logical argument to control if progress bar is shown. Default is \code{TRUE}.}
 
-\item{outliers}{Numeric vector of length 1. A value between 0 and 1 controling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.}
+\item{outliers}{Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.}
 
 \item{pairwise.scale}{Logical argument to control if pairwise phenotypic spaces are scaled (i.e. z-transformed) prior to similarity estimation. If so (\code{TRUE}) similarities are decoupled from the size of the global phenotypic space. Useful to compare similarities coming from different phenotypic spaces. Default is \code{FALSE}. Not available for 'density.overlap' and 'mean.density.overlap'.}
 }

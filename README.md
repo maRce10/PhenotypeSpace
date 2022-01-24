@@ -24,5 +24,5 @@ library(PhenotypeSpace)
 
 Please cite [PhenotypeSpace](https://github.com/maRce10/PhenotypeSpace) as follows:
 
-Araya-Salas, M. (2022), PhenotypeSpace: and R package to quantify and compare trait spaces. R package version 0.1.0.
+Araya-Salas, M., & K. Odom. 2022. PhenotypeSpace: and R package to quantify and compare phenotypic trait spaces. R package version 0.1.0.
 

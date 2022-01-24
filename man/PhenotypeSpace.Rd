@@ -5,13 +5,13 @@
 \alias{PhenotypeSpace}
 \title{PhenotypeSpace: Quantifying phenotypic spaces}
 \description{
-Facilitates quantifying of phenotypic spaces and comparing spaces across groups.
+Facilitates quantifying phenotypic trait spaces and comparing spaces across groups.
 }
 \details{
 The package offers functions for:
   \itemize{
-  \item Estimate absolute values of trait spaces
-  \item Compare trait spaces across groups
+  \item Estimate absolute values of phenotypic trait spaces
+  \item Compare phenotypic trait spaces across groups
   \item Modify output formats to facilitate statistical analysis
   }
 

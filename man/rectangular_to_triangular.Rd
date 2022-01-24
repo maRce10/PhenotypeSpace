@@ -7,7 +7,7 @@
 rectangular_to_triangular(X, distance = TRUE, symmetric = TRUE)
 }
 \arguments{
-\item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels. A data frame in which each observation (row) contains the pairwise value and related labels of the 'groups' being compared. The first two columns must contain group labels which will appear as rows (1 column) and column names (2 column) in the output triangular matrix. The third column (and fourth column if \code{symmetric = FALSE}) must have the numeric values to be included in the output triangular matrix.}
+\item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels. Each observation (row) must contain the pairwise value and related labels of the 'groups' being compared. The first two columns must contain group labels which will appear as rows (1 column) and column names (2 column) in the output triangular matrix. The third column (and fourth column if \code{symmetric = FALSE}) must have the numeric values to be included in the output triangular matrix.}
 
 \item{distance}{Logical argument to control if the input data contains pairwise distances (dissimilarities) or similarities. If \code{TRUE} then diagonal values are filled with 0, otherwise they are filled with 1. Note that diagonal values can be set with \code{\link[base]{diag}}.}
 

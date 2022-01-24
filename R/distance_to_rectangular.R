@@ -3,7 +3,7 @@
 #' @description \code{distance_to_rectangular} converts binary triangular matrices to rectangular matrices using Multidimensional Scaling. 
 #' @usage distance_to_rectangular(distance.matrix, labels = names(distance.matrix), 
 #' n.dimensions = 2, metric = TRUE, ...)
-#' @param distance.matrix Distance matrix (i.e. object of class 'dist'). Can be created using the function \code{\link[stats]{dist}} or coverted to using  \code{\link[stats]{as.dist}}. 
+#' @param distance.matrix Distance matrix (i.e. object of class 'dist'). Can be created using the function \code{\link[stats]{dist}} or converted to using  \code{\link[stats]{as.dist}}. 
 #' @param labels Character vector or factor containing labels to be used for rows/columns in the output data frame. Default is \code{names(distance.matrix)}. Must be the same length as the number of observations in 'distance.matrix'.
 #' @param n.dimensions Integer vector of length 1 indicating the number of of dimensions to represent distances in a new space. Default is 2.
 #' @param metric Logical argument to control if Metric (a.k.a. Classical, \code{TRUE}, default) or Non-Metric MUltidimensional Scaling (\code{FALSE}) is used to project in a new n-dimension space. Non-Metric MDS is conducted using the function \code{\link[MASS]{isoMDS}} while Classical MDS uses the function \code{\link[stats]{cmdscale}}. So yes, it is a silly wrapper over those 2 functions.
@@ -11,7 +11,7 @@
 #' @return  A data frame with the new dimensions representing the position of observations in a new n-dimension space. If \code{metric = FALSE} the output data frame is embedded in a list that also includes the stress value.
 #' @export
 #' @name distance_to_rectangular
-#' @details It is a silly wrapper over 2 multidimensional scaling functions (\code{\link[MASS]{isoMDS}} and \code{\link[stats]{cmdscale}}) that simplifies the calculation of Multidimensional Scaling and formating of its output to be used with other functions in the package.
+#' @details It is a silly wrapper over 2 multidimensional scaling functions (\code{\link[MASS]{isoMDS}} and \code{\link[stats]{cmdscale}}) that simplifies the calculation of Multidimensional Scaling and formatting of its output to be used with other functions in the package.
 #' @examples {
 #' data("example_space")
 #' 
