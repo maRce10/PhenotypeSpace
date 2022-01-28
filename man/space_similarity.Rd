@@ -2,10 +2,10 @@
 % Please edit documentation in R/space_similarity.R
 \name{space_similarity}
 \alias{space_similarity}
-\title{Estimates pairwise overlaps of phenotype spaces}
+\title{Pairwise similarities of phenotype spaces}
 \usage{
 space_similarity(X, dimensions, group, parallel = 1, type = "mcp.overlap", 
-pb = TRUE, outliers = 0.95, pairwise.scale = FALSE)
+pb = TRUE, outliers = 0.95, pairwise.scale = FALSE, distance.method = "Euclidean")
 }
 \arguments{
 \item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
@@ -32,12 +32,14 @@ pb = TRUE, outliers = 0.95, pairwise.scale = FALSE)
 \item{outliers}{Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.}
 
 \item{pairwise.scale}{Logical argument to control if pairwise phenotypic spaces are scaled (i.e. z-transformed) prior to similarity estimation. If so (\code{TRUE}) similarities are decoupled from the size of the global phenotypic space. Useful to compare similarities coming from different phenotypic spaces. Default is \code{FALSE}. Not available for 'density.overlap' and 'mean.density.overlap'.}
+
+\item{distance.method}{Character vector of length 1 indicating the method to be used for measuring distances (hence only applicable when distances are calculated). Default is 'Euclidean'. All distance and similarity measures available in \code{\link[proxy]{dist}} can be used (but note that not all of them apply to continuous data). Check available metrics by running \code{summary(pr_DB)}.}
 }
 \value{
 A data frame containing the similarity metric for each pair of groups. If the similarity metric is not symmetric (e.g. the proportional area of A that overlaps B is not necessarily the same as the area of B that overlaps A, see \code{\link{space_similarity}}) separated columns are supplied for the two comparisons.
 }
 \description{
-\code{space_similarity}
+\code{space_similarity} estimate pairwise similarities of phenotype spaces
 }
 \details{
 The function quantifies pairwise similarity between phenotypic sub-spaces. Similarity is evaluated as the overlap (similarity) or distance (dissimilarity) between group.
@@ -66,6 +68,25 @@ type = "mcp.overlap")
 
 # convert to non-symmetric triangular matrix
 rectangular_to_triangular(mcp_overlaps, symmetric = FALSE)
+
+# check available distance measures 
+summary(pr_DB)
+
+# get eculidean distances (default)
+area_dist <- space_similarity(
+X = example_space,
+dimensions =  c("Dimension_1", "Dimension_2"),
+group = "ID",
+type = "distance",
+distance.method = "Euclidean")
+
+# get Canberra distances 
+area_dist <- space_similarity(
+X = example_space,
+dimensions =  c("Dimension_1", "Dimension_2"),
+group = "ID",
+type = "distance",
+distance.method = "Canberra")
 }
 }
 \references{

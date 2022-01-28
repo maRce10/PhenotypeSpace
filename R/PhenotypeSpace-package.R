@@ -17,6 +17,7 @@
 #' @import parallel
 #' @import utils
 #' @import stats
+#' @import proxy
 #' @importFrom vegan spantree
 #' @importFrom utils combn
 #' @importFrom spatstat.core density.ppp

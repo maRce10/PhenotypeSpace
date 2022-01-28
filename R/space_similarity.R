@@ -1,8 +1,8 @@
-#' @title Estimates pairwise overlaps of phenotype spaces
+#' @title Pairwise similarities of phenotype spaces
 #'
-#' @description \code{space_similarity}
+#' @description \code{space_similarity} estimate pairwise similarities of phenotype spaces
 #' @usage space_similarity(X, dimensions, group, parallel = 1, type = "mcp.overlap", 
-#' pb = TRUE, outliers = 0.95, pairwise.scale = FALSE)
+#' pb = TRUE, outliers = 0.95, pairwise.scale = FALSE, distance.method = "Euclidean")
 #' @param X Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels. 
 #' @param dimensions Character vector with the names of the columns containing the dimensions of the phenotypic space. For similarity metrics using overlap 2 dimensions are required. Distance metrics can used any number of dimensions.
 #' @param group Character vector with the name of the column (character or factor) containing group labels.
@@ -20,6 +20,7 @@
 #' @param pb Logical argument to control if progress bar is shown. Default is \code{TRUE}.
 #' @param outliers Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.
 #' @param pairwise.scale Logical argument to control if pairwise phenotypic spaces are scaled (i.e. z-transformed) prior to similarity estimation. If so (\code{TRUE}) similarities are decoupled from the size of the global phenotypic space. Useful to compare similarities coming from different phenotypic spaces. Default is \code{FALSE}. Not available for 'density.overlap' and 'mean.density.overlap'.
+#' @param distance.method Character vector of length 1 indicating the method to be used for measuring distances (hence only applicable when distances are calculated). Default is 'Euclidean'. All distance and similarity measures available in \code{\link[proxy]{dist}} can be used (but note that not all of them apply to continuous data). Check available metrics by running \code{summary(pr_DB)}. If a similarity measure is used similarities are converted to distances.
 #' @return A data frame containing the similarity metric for each pair of groups. If the similarity metric is not symmetric (e.g. the proportional area of A that overlaps B is not necessarily the same as the area of B that overlaps A, see \code{\link{space_similarity}}) separated columns are supplied for the two comparisons.  
 #' @export
 #' @name space_similarity
@@ -47,6 +48,25 @@
 #' 
 #' # convert to non-symmetric triangular matrix
 #' rectangular_to_triangular(mcp_overlaps, symmetric = FALSE)
+#' 
+#' # check available distance measures 
+#' summary(pr_DB)
+#' 
+#' # get eculidean distances (default)
+#' area_dist <- space_similarity(
+#' X = example_space,
+#' dimensions =  c("Dimension_1", "Dimension_2"),
+#' group = "ID",
+#' type = "distance",
+#' distance.method = "Euclidean")
+#'
+#' # get Canberra distances 
+#' area_dist <- space_similarity(
+#' X = example_space,
+#' dimensions =  c("Dimension_1", "Dimension_2"),
+#' group = "ID",
+#' type = "distance",
+#' distance.method = "Canberra")
 #' }
 #' @seealso \code{\link{rarefact_space_similarity}}, \code{\link{space_size_difference}}
 #' @author Marcelo Araya-Salas \email{marcelo.araya@@ucr.ac.cr})
@@ -56,7 +76,7 @@
 #' }
 # last modification on jan-2022 (MAS)
 
-space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.overlap", pb = TRUE, outliers = 0.95, pairwise.scale = FALSE) {
+space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.overlap", pb = TRUE, outliers = 0.95, pairwise.scale = FALSE, distance.method = "Euclidean") {
   
   if (!type %in% c("density.overlap", "mean.density.overlap", "mcp.overlap", "mean.mcp.overlap", "proportional.overlap", "distance", "centroid.distance"))
     stop("Unsupported 'type' declared")
@@ -114,7 +134,7 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
   
   
   # function to calculate areas
-  ovlp_fun <- function(W, Z, tp, dims) {
+  ovlp_fun <- function(W, Z, tp, dims, dist.meth) {
     
     # get area
     # raster density
@@ -185,7 +205,7 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
       
       U <- rbind(W, Z)
       
-      dists <- as.matrix(stats::dist(U[ , dims]))
+      dists <- as.matrix(proxy::dist(U[ , dims], method = dist.meth,  convert_similarities = TRUE))
       
       dists <- dists[U[, group] == W[, group][1], U[, group] == Z[, group][1]]
       
@@ -199,7 +219,7 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
       
       frmla <- stats::as.formula(paste("cbind(", paste(dims, collapse = ","), ") ~ ", group))
       
-      centroid.dist <- stats::dist(stats::aggregate(formula = frmla, data = Y, FUN = mean)[, -1])
+      centroid.dist <- proxy::dist(stats::aggregate(formula = frmla, data = Y, FUN = mean)[, -1], method = dist.meth,  convert_similarities = TRUE)
       
       out <- matrix(centroid.dist, nrow = 1)  
     }
@@ -212,7 +232,7 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
   group_combs <- t(utils::combn(sort(unique(X[, group])), 2))
   
   # calculate all similarities
-  similarities_l <- warbleR:::pblapply_wrblr_int(1:nrow(group_combs), pbar = pb,  cl = parallel, function(i, data = input_data, gc = group_combs, dims = dimensions, typ = type, pair.scale = pairwise.scale) {
+  similarities_l <- warbleR:::pblapply_wrblr_int(1:nrow(group_combs), pbar = pb,  cl = parallel, function(i, data = input_data, gc = group_combs, dims = dimensions, typ = type, pair.scale = pairwise.scale, dist.meth = distance.method) {
     
     if (type %in% c("density.overlap", "mean.density.overlap")){
       W <- data[[which(names(data) == gc[i, 1])]]
@@ -238,7 +258,7 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
       }
     }
     
-    suppressWarnings(similarities <- ovlp_fun(W, Z, typ, dims))
+    suppressWarnings(similarities <- ovlp_fun(W, Z, typ, dims, dist.meth))
 
     # put in a data frame
     
