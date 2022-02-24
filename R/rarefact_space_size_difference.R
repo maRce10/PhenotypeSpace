@@ -56,7 +56,7 @@ rarefact_space_size_difference <- function(X, dimensions, group, n = NULL, repla
   X$...rownames <-  1:nrow(X) 
   
   # run iterations
-  space_size_diffs_list <- warbleR:::pblapply_wrblr_int(1:iterations, cl = parallel, pb = pb, function(e){
+  space_size_diffs_list <- pblapply_phtpspc_int(1:iterations, cl = parallel, pbar = pb, function(e){
     if (!is.null(seed))
       set.seed(seed + e)
     

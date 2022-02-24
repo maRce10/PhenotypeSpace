@@ -60,7 +60,7 @@ rarefact_space_size <- function(X, dimensions, group, n = NULL, replace = FALSE,
   X$...rownames <-  1:nrow(X) 
   
   # run iterations
-  space_sizes_list <- warbleR:::pblapply_wrblr_int(1:iterations, cl = parallel, pb = pb, function(e){
+  space_sizes_list <- pblapply_phtpspc_int(1:iterations, cl = parallel, pbar = pb, function(e){
     if (!is.null(seed))
       set.seed(seed + e)
     

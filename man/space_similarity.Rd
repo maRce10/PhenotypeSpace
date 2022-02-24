@@ -33,7 +33,7 @@ pb = TRUE, outliers = 0.95, pairwise.scale = FALSE, distance.method = "Euclidean
 
 \item{pairwise.scale}{Logical argument to control if pairwise phenotypic spaces are scaled (i.e. z-transformed) prior to similarity estimation. If so (\code{TRUE}) similarities are decoupled from the size of the global phenotypic space. Useful to compare similarities coming from different phenotypic spaces. Default is \code{FALSE}. Not available for 'density.overlap' and 'mean.density.overlap'.}
 
-\item{distance.method}{Character vector of length 1 indicating the method to be used for measuring distances (hence only applicable when distances are calculated). Default is 'Euclidean'. All distance and similarity measures available in \code{\link[proxy]{dist}} can be used (but note that not all of them apply to continuous data). Check available metrics by running \code{summary(pr_DB)}.}
+\item{distance.method}{Character vector of length 1 indicating the method to be used for measuring distances (hence only applicable when distances are calculated). Default is 'Euclidean'. All distance and similarity measures available in \code{\link[proxy]{dist}} can be used (but note that not all of them apply to continuous data). Check available metrics by running \code{summary(proxy::pr_DB)}. If a similarity measure is used similarities are converted to distances.}
 }
 \value{
 A data frame containing the similarity metric for each pair of groups. If the similarity metric is not symmetric (e.g. the proportional area of A that overlaps B is not necessarily the same as the area of B that overlaps A, see \code{\link{space_similarity}}) separated columns are supplied for the two comparisons.
@@ -70,7 +70,7 @@ type = "mcp.overlap")
 rectangular_to_triangular(mcp_overlaps, symmetric = FALSE)
 
 # check available distance measures 
-summary(pr_DB)
+summary(proxy::pr_DB)
 
 # get eculidean distances (default)
 area_dist <- space_similarity(
@@ -91,7 +91,7 @@ distance.method = "Canberra")
 }
 \references{
 {
-Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: quantifying phenotypic trait spaces. R package version 0.1.0.
+Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
 }
 }
 \seealso{

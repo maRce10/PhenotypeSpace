@@ -40,14 +40,16 @@ metric = TRUE)
 
 head(rect_example)
 
+\donttest{
 # convert into a 2-dimension space with non-metric MDS
 rect_example <- distance_to_rectangular(distance.matrix = dist_example, 
 metric = FALSE, maxit = 3)
+ }
 }
 }
 \references{
 {
-Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: quantifying phenotypic trait spaces. R package version 0.1.0.
+Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
 }
 }
 \seealso{

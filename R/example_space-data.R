@@ -4,7 +4,10 @@
 #'
 #' @description \code{example_space} is a data frame with 1550 observations of a simulated phenotypic bi-dimensional space including 5 groups.
 #'
-#' @example {
+#' @examples {
+#' # load data
+#' data("example_space")
+#' 
 #' #plot space 
 #' xs <- tapply(example_space$Dimension_1, example_space$ID, mean)
 #' ys <- tapply(example_space$Dimension_2, example_space$ID, mean)

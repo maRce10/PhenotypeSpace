@@ -63,7 +63,7 @@ rarefact_space_similarity <- function(X, dimensions, group, n = NULL, replace = 
   X$...rownames <-  1:nrow(X) 
   
   # run iterations
-  space_similarities_list <- warbleR:::pblapply_wrblr_int(1:iterations, cl = parallel, pb = pb, function(e){
+  space_similarities_list <- pblapply_phtpspc_int(1:iterations, cl = parallel, pbar = pb, function(e){
     if (!is.null(seed))
       set.seed(seed + e)
     

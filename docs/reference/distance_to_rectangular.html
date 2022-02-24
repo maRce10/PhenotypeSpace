@@ -158,7 +158,7 @@ n.dimensions <span class='op'>=</span> <span class='fl'>2</span>, metric <span c
     <p>It is a silly wrapper over 2 multidimensional scaling functions (<code><a href='https://rdrr.io/pkg/MASS/man/isoMDS.html'>isoMDS</a></code> and <code><a href='https://rdrr.io/r/stats/cmdscale.html'>cmdscale</a></code>) that simplifies the calculation of Multidimensional Scaling and formatting of its output to be used with other functions in the package.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Araya-Salas, M, &amp; K. Odom. 2022, PhenotypeSpace: quantifying phenotypic trait spaces. R package version 0.1.0.</p>
+    <p>Araya-Salas, M, &amp; K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>distance_to_rectangular</code>, <code><a href='rectangular_to_triangular.html'>rectangular_to_triangular</a></code></p></div>
@@ -179,9 +179,11 @@ metric <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)<
 
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>rect_example</span><span class='op'>)</span>
 
+<span class='co'># \donttest{</span>
 <span class='co'># convert into a 2-dimension space with non-metric MDS</span>
 <span class='va'>rect_example</span> <span class='op'>&lt;-</span> <span class='fu'>distance_to_rectangular</span><span class='op'>(</span>distance.matrix <span class='op'>=</span> <span class='va'>dist_example</span>, 
 metric <span class='op'>=</span> <span class='cn'>FALSE</span>, maxit <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+ <span class='co'># }</span>
 <span class='op'>}</span>
 </pre>
   </div>

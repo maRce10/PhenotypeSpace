@@ -98,7 +98,7 @@ space_size <- function(X, dimensions = NULL, group, parallel = 1, type = "mcp", 
   }
   
   # calculate all areas
-  areas_l <- warbleR:::pblapply_wrblr_int(X_l, pbar = pb, cl = parallel, function(Y, dims = dimensions, typ = type, outlrs = outliers) {
+  areas_l <- pblapply_phtpspc_int(X_l, pbar = pb, cl = parallel, function(Y, dims = dimensions, typ = type, outlrs = outliers) {
     
     # subset for each individual 
     W <- Y[, dims]

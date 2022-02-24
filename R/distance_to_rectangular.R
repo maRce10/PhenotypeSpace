@@ -24,9 +24,11 @@
 #' 
 #' head(rect_example)
 #' 
+#' \donttest{
 #' # convert into a 2-dimension space with non-metric MDS
 #' rect_example <- distance_to_rectangular(distance.matrix = dist_example, 
 #' metric = FALSE, maxit = 3)
+#'  }
 #' }
 #' @seealso \code{\link{distance_to_rectangular}}, \code{\link{rectangular_to_triangular}}
 #' @author Marcelo Araya-Salas \email{marcelo.araya@@ucr.ac.cr})
