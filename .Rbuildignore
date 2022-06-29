@@ -1,5 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^.*\.pdf$
 testing
 docs
 pkgdown
+^README\.Rmd$

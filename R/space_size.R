@@ -83,7 +83,7 @@ space_size <- function(X, dimensions = NULL, group, parallel = 1, type = "mcp", 
     # get area
     # kernel area
     if (tp == "density")
-      area <- adehabitatHR::kernel.area(adehabitatHR::kernelUD(W, extent = 1.5, ...), percent = ol * 100)[[1]]
+      area <- adehabitatHR::kernel.area(adehabitatHR::kernelUD(W, ...), percent = ol * 100)[[1]]
     
     # mcp area
     if (tp == "mcp")

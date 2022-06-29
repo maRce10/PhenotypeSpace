@@ -25,6 +25,8 @@
 #' @importFrom raster extend raster values extent coordinates area resample
 #' @importFrom viridis viridis inferno
 #' @importFrom stats as.formula dist sd
+#' @importFrom grDevices adjustcolor colorRampPalette
+#' @importFrom graphics image legend par points
 #' @author Marcelo Araya-Salas
 #'
 #'   Maintainer: Marcelo Araya-Salas (\email{marcelo.araya@@ucr.ac.cr})
