@@ -119,31 +119,25 @@ seed <span class="op">=</span> <span class="cn">NULL</span>, parallel <span clas
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">{</span></span>
-<span class="r-in"><span class="co"># load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"example_space"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># get rarefacted MCP space size </span></span>
-<span class="r-in"><span class="co"># (try with more iterations on your own data)</span></span>
-<span class="r-in"><span class="fu">rarefact_space_size</span><span class="op">(</span></span>
-<span class="r-in">X <span class="op">=</span> <span class="va">example_space</span>,</span>
-<span class="r-in">dimensions <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dimension_1"</span>, <span class="st">"Dimension_2"</span><span class="op">)</span>,</span>
-<span class="r-in">group <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span class="r-in">type <span class="op">=</span> <span class="st">"mcp"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># mst rarefacted</span></span>
-<span class="r-in"><span class="fu">rarefact_space_size</span><span class="op">(</span></span>
-<span class="r-in">X <span class="op">=</span> <span class="va">example_space</span>,</span>
-<span class="r-in">dimensions <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dimension_1"</span>, <span class="st">"Dimension_2"</span><span class="op">)</span>,</span>
-<span class="r-in">group <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span class="r-in">type <span class="op">=</span> <span class="st">"mst"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   group   n mean.size  min.size  max.size   sd.size</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    G1 150  6.392008  6.392008  6.392008 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    G2 150  7.928033  7.502975  8.199399 0.1485577</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    G3 150 21.245617 20.384731 22.241076 0.4395687</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    G4 150 12.709222 12.144955 13.277781 0.2902024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    G5 150 16.717325 15.983604 17.515823 0.3679660</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="op">{</span>
+<span class="co"># load data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"example_space"</span><span class="op">)</span>
+
+<span class="co"># get rarefacted MCP space size </span>
+<span class="co"># (try with more iterations on your own data)</span>
+<span class="fu">rarefact_space_size</span><span class="op">(</span>
+X <span class="op">=</span> <span class="va">example_space</span>,
+dimensions <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dimension_1"</span>, <span class="st">"Dimension_2"</span><span class="op">)</span>,
+group <span class="op">=</span> <span class="st">"ID"</span>,
+type <span class="op">=</span> <span class="st">"mcp"</span><span class="op">)</span>
+
+<span class="co"># mst rarefacted</span>
+<span class="fu">rarefact_space_size</span><span class="op">(</span>
+X <span class="op">=</span> <span class="va">example_space</span>,
+dimensions <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dimension_1"</span>, <span class="st">"Dimension_2"</span><span class="op">)</span>,
+group <span class="op">=</span> <span class="st">"ID"</span>,
+type <span class="op">=</span> <span class="st">"mst"</span><span class="op">)</span>
+<span class="op">}</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -119,27 +119,21 @@ seed <span class="op">=</span> <span class="cn">NULL</span>, parallel <span clas
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">{</span></span>
-<span class="r-in"><span class="co"># load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"example_space"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># get rarefied size difference using MCP (try with more iterations on your own data)</span></span>
-<span class="r-in"><span class="va">mcp_size_diff</span> <span class="op">&lt;-</span> <span class="fu">rarefact_space_size_difference</span><span class="op">(</span></span>
-<span class="r-in">X <span class="op">=</span> <span class="va">example_space</span>,</span>
-<span class="r-in">dimensions <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dimension_1"</span>, <span class="st">"Dimension_2"</span><span class="op">)</span>,</span>
-<span class="r-in">group <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span class="r-in">type <span class="op">=</span> <span class="st">"mcp"</span>, </span>
-<span class="r-in">iterations <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># convert to non-symmetric triangular matrix</span></span>
-<span class="r-in"><span class="fu"><a href="rectangular_to_triangular.html">rectangular_to_triangular</a></span><span class="op">(</span><span class="va">mcp_size_diff</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               G1            G2            G3            G4            G5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> G1  0.0000000000 -3.347637e-05 -0.0004979063 -0.0001467846 -0.0003052361</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> G2 -0.0000363661  0.000000e+00 -0.0004644299 -0.0001133082 -0.0002717597</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> G3 -0.0005150874 -4.817715e-04  0.0000000000  0.0003511217  0.0001926702</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> G4 -0.0001571087 -1.242204e-04  0.0003295040  0.0000000000 -0.0001584515</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> G5 -0.0003082806 -2.743690e-04  0.0001775557 -0.0001694276  0.0000000000</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="op">{</span>
+<span class="co"># load data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"example_space"</span><span class="op">)</span>
+
+<span class="co"># get rarefied size difference using MCP (try with more iterations on your own data)</span>
+<span class="va">mcp_size_diff</span> <span class="op">&lt;-</span> <span class="fu">rarefact_space_size_difference</span><span class="op">(</span>
+X <span class="op">=</span> <span class="va">example_space</span>,
+dimensions <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dimension_1"</span>, <span class="st">"Dimension_2"</span><span class="op">)</span>,
+group <span class="op">=</span> <span class="st">"ID"</span>,
+type <span class="op">=</span> <span class="st">"mcp"</span>, 
+iterations <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+
+<span class="co"># convert to non-symmetric triangular matrix</span>
+<span class="fu"><a href="rectangular_to_triangular.html">rectangular_to_triangular</a></span><span class="op">(</span><span class="va">mcp_size_diff</span>, symmetric <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="op">}</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

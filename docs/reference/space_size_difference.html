@@ -114,24 +114,24 @@ pb <span class="op">=</span> <span class="cn">TRUE</span>, outliers <span class=
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">{</span></span>
-<span class="r-in"><span class="co"># load data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"example_space"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># MCP size (try with more iterations on your own data)</span></span>
-<span class="r-in"><span class="va">mcp_size</span> <span class="op">&lt;-</span> <span class="fu">space_size_difference</span><span class="op">(</span></span>
-<span class="r-in">X <span class="op">=</span> <span class="va">example_space</span>,</span>
-<span class="r-in">dimensions <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dimension_1"</span>, <span class="st">"Dimension_2"</span><span class="op">)</span>,</span>
-<span class="r-in">group <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span class="r-in">type <span class="op">=</span> <span class="st">"mcp"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># MST size</span></span>
-<span class="r-in"><span class="va">mcp_size</span> <span class="op">&lt;-</span> <span class="fu">space_size_difference</span><span class="op">(</span></span>
-<span class="r-in">X <span class="op">=</span> <span class="va">example_space</span>,</span>
-<span class="r-in">dimensions <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dimension_1"</span>, <span class="st">"Dimension_2"</span><span class="op">)</span>,</span>
-<span class="r-in">group <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span class="r-in">type <span class="op">=</span> <span class="st">"mst"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="op">{</span>
+<span class="co"># load data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"example_space"</span><span class="op">)</span>
+
+<span class="co"># MCP size (try with more iterations on your own data)</span>
+<span class="va">mcp_size</span> <span class="op">&lt;-</span> <span class="fu">space_size_difference</span><span class="op">(</span>
+X <span class="op">=</span> <span class="va">example_space</span>,
+dimensions <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dimension_1"</span>, <span class="st">"Dimension_2"</span><span class="op">)</span>,
+group <span class="op">=</span> <span class="st">"ID"</span>,
+type <span class="op">=</span> <span class="st">"mcp"</span><span class="op">)</span>
+
+<span class="co"># MST size</span>
+<span class="va">mcp_size</span> <span class="op">&lt;-</span> <span class="fu">space_size_difference</span><span class="op">(</span>
+X <span class="op">=</span> <span class="va">example_space</span>,
+dimensions <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dimension_1"</span>, <span class="st">"Dimension_2"</span><span class="op">)</span>,
+group <span class="op">=</span> <span class="st">"ID"</span>,
+type <span class="op">=</span> <span class="st">"mst"</span><span class="op">)</span>
+<span class="op">}</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
