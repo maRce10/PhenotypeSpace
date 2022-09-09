@@ -45,7 +45,7 @@ distance_to_rectangular <- function(distance.matrix, labels = names(distance.mat
   mds <- stats::cmdscale(distance.matrix, k = n.dimensions)
   
   if (length(labels) != attr(distance.matrix, "Size"))
-    stop("'labels' should have the same length as the number of observations in 'distance.matrix' (see 'attributes(distance.matrix)$Size')")
+    stop2("'labels' should have the same length as the number of observations in 'distance.matrix' (see 'attributes(distance.matrix)$Size')")
   
   # non-metric
   if (!metric){

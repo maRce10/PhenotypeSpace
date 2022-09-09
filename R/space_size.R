@@ -58,7 +58,7 @@
 space_size <- function(X, dimensions = NULL, group, parallel = 1, type = "mcp", pb = TRUE, outliers = 0.95, ...) {
   
   if (!type %in% c("mst", "mcp", "density"))
-    stop("'type' must be either 'mcp', 'mst' or 'density'")
+    stop2("'type' must be either 'mcp', 'mst' or 'density'")
   
   # split in a list of vectors
   X_l <- split(x = X, f = X[, group])
@@ -68,13 +68,13 @@ space_size <- function(X, dimensions = NULL, group, parallel = 1, type = "mcp", 
   
   # stop if too small sample sizes
   if (n < 6 & type == "density")
-    stop("There is at least one group with less than 6 observations which is the minimum needed for kernel density area estimation (type = 'density')")
+    stop2("There is at least one group with less than 6 observations which is the minimum needed for kernel density area estimation (type = 'density')")
   
   if (n < 5 & type == "mcp")
-    stop("There is at least one group with less than 5 observations which is the minimum needed for 'mcp' area estimation (type = 'mcp')")
+    stop2("There is at least one group with less than 5 observations which is the minimum needed for 'mcp' area estimation (type = 'mcp')")
   
   if (n < 2 & type == "mst")
-    stop("There is at least one group with less than 2 observations which is the minimum needed for 'mst' 'area' estimation (type = 'mst')")
+    stop2("There is at least one group with less than 2 observations which is the minimum needed for 'mst' 'area' estimation (type = 'mst')")
   
   
   # function to calculate areas

@@ -79,7 +79,7 @@
 space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.overlap", pb = TRUE, outliers = 0.95, pairwise.scale = FALSE, distance.method = "Euclidean") {
   
   if (!type %in% c("density.overlap", "mean.density.overlap", "mcp.overlap", "mean.mcp.overlap", "proportional.overlap", "distance", "centroid.distance"))
-    stop("Unsupported 'type' declared")
+    stop2("Unsupported 'type' declared")
   # 
   # if (type == "centroid.distance") {
   #   
@@ -98,7 +98,7 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
   
   # stop if too small sample sizes
   if (min(sapply(X_l, nrow)) < 2)
-    stop("There is at least one group with less than 2 observations which is the minimum needed for overlap estimation")
+    stop2("There is at least one group with less than 2 observations which is the minimum needed for overlap estimation")
   
   # get densities
   if (type %in% c("density.overlap", "mean.density.overlap")){

@@ -1,3 +1,10 @@
+# internal function not to be called by users
+# stop function that doesn't print call
+stop2 <- function (...)
+{
+  stop2(..., call. = FALSE)
+}
+
 # internal function, not to be called by users. It is a modified version of pbapply::pblapply
 # that allows to define internally if progress bar would be used (pbapply::pblapply uses pboptions to do this) 
 #last modification on feb-24-2022 (MAS)

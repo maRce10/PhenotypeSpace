@@ -33,12 +33,12 @@ binary_triangular_matrix <- function(group, labels = NULL) {
   
   # check group
   if (!anyDuplicated(group)) 
-    stop("'group' must have duplicates (more than 1 observation in some groups)")
+    stop2("'group' must have duplicates (more than 1 observation in some groups)")
   
   # check labels
   if (!is.null(labels))
     if (anyDuplicated(labels)) 
-      stop("Cannot have duplicated labels")
+      stop2("Cannot have duplicated labels")
     
   # create new mat
   mat <- matrix(nrow = length(group), ncol = length(group))  

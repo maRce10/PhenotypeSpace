@@ -43,7 +43,7 @@
 rectangular_to_triangular <- function(X, distance = TRUE, symmetric = TRUE){
   
   if (!symmetric & ncol(X) < 4) 
-    stop("'X' must have at least 2 numeric columns when `symmetric = FALSE`")
+    stop2("'X' must have at least 2 numeric columns when `symmetric = FALSE`")
 
   # get groups
   groups <- sort(unique(c(X[, 1], X[, 2])))
