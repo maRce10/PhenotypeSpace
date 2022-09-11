@@ -2,7 +2,7 @@
 # stop function that doesn't print call
 stop2 <- function (...)
 {
-  stop2(..., call. = FALSE)
+  stop(..., call. = FALSE)
 }
 
 # internal function, not to be called by users. It is a modified version of pbapply::pblapply
