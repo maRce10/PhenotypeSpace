@@ -12,12 +12,12 @@
 #'
 #' All functions allow the parallelization of tasks, which distributes the tasks among several processors to improve computational efficiency. 
 #' 
-#' @import warbleR
 #' @import pbapply
 #' @import parallel
 #' @import utils
 #' @import stats
 #' @import proxy
+#' @importFrom rgeos gIntersection
 #' @importFrom vegan spantree
 #' @importFrom utils combn
 #' @importFrom spatstat.core density.ppp

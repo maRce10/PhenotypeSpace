@@ -132,7 +132,6 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
     
   } else input_data <- X_l
   
-  
   # function to calculate areas
   ovlp_fun <- function(W, Z, tp, dims, dist.meth) {
     
@@ -166,7 +165,7 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
       
       
       # get intersect
-      intrsct <- raster::intersect(adehabitatHR::mcp(W), adehabitatHR::mcp(Z))
+      intrsct <- rgeos::gIntersection(adehabitatHR::mcp(W), adehabitatHR::mcp(Z))
       if (!is.null(intrsct))
       {
         intrsctspace_size <- raster::area(intrsct)
@@ -187,7 +186,7 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
       Y <- rbind(W, Z)
 
       # get intersect
-      intrsct <- raster::intersect(adehabitatHR::mcp(W, percent = outliers * 100), adehabitatHR::mcp(Z, percent = outliers * 100))
+      intrsct <- rgeos::gIntersection(adehabitatHR::mcp(W, percent = outliers * 100), adehabitatHR::mcp(Z, percent = outliers * 100))
       
       if (!is.null(intrsct))
       {
@@ -227,7 +226,6 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
     return(out)
   }
 
-  
   # get all combinations to get pairwise overlaps
   group_combs <- t(utils::combn(sort(unique(X[, group])), 2))
   
