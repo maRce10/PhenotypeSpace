@@ -14,7 +14,7 @@ rectangular_to_triangular(X, distance = TRUE, symmetric = TRUE)
 \item{symmetric}{Logical argument to define if values are duplicated on both off-diagonal triangles (a symmetric triangular matrix, \code{symmetric = TRUE}, default) or each triangle is filled with values from different columns (a non-symmetric triangular matrix, \code{symmetric = FALSE}). In the latter the upper triangle is filled with the first column and the lower triangle with the second column. In this case, a fourth column with numeric values should be supplied.}
 }
 \value{
-A pairwise triangular matrix.
+A pairwise triangular matrix in which labels from the first group column in 'X' are shown in the columns and labels from the second group are shown in the rows. If \code{symmetric = FALSE} the same information is shown below and above the diagonal.
 }
 \description{
 \code{rectangular_to_triangular} converts rectangular pairwise matrices as those output by many PhenotypeSpace functions into triangular pairwise matrices.

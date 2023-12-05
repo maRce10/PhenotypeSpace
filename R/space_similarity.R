@@ -218,7 +218,7 @@ space_similarity <- function(X, dimensions, group, parallel = 1, type = "mcp.ove
       
       frmla <- stats::as.formula(paste("cbind(", paste(dims, collapse = ","), ") ~ ", group))
       
-      centroid.dist <- proxy::dist(stats::aggregate(formula = frmla, data = Y, FUN = mean)[, -1], method = dist.meth,  convert_similarities = TRUE)
+      centroid.dist <- proxy::dist(stats::aggregate(x = frmla, data = Y, FUN = mean)[, -1], method = dist.meth,  convert_similarities = TRUE)
       
       out <- matrix(centroid.dist, nrow = 1)  
     }
