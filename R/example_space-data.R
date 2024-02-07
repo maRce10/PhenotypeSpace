@@ -2,18 +2,38 @@
 #'
 #' @usage data(example_space)
 #'
-#' @description \code{example_space} is a data frame with 1550 observations of a simulated phenotypic bi-dimensional space including 5 groups.
+#' @description \code{example_space} is a data frame with 1550 observations of a simulated phenotypic tri-dimensional space including 5 groups.
 #'
 #' @examples {
 #' # load data
 #' data("example_space")
 #' 
-#' #plot space 
-#' xs <- tapply(example_space$Dimension_1, example_space$ID, mean)
-#' ys <- tapply(example_space$Dimension_2, example_space$ID, mean)
-#' plot(example_space[, c("Dimension_1", "Dimension_2")], 
+#' #plot space in 2 dimensions
+#' xs <- tapply(example_space$dimension_1, example_space$group, mean)
+#' ys <- tapply(example_space$dimension_2, example_space$group, mean)
+#' plot(example_space[, c("dimension_1", "dimension_2")], 
 #'    col = example_space$color, pch = 20, cex = 1.8)
 #' text(xs, ys, labels = names(xs), cex = 2.5)
+#' 
+#' 
+#' # Install and load necessary libraries
+#' rlang::check_installed("plotly")
+#' 
+#' library(plotly)
+#' 
+#' # plot space in 4 dimensions
+#' plot_ly(
+#' data = example_space,
+#' x = ~dimension_1,
+#' y = ~dimension_2,
+#' z = ~dimension_3,
+#' type = "scatter3d",
+#' mode = "markers",
+#' alpha = 0.8,
+#' marker = list(size = 4),
+#' color = ~ group,
+#' colors = unique(example_space$color) 
+#' )
 #' }
 #'
 #' @source Marcelo Araya Salas, PhenotypeSpace

@@ -4,8 +4,16 @@
 \alias{space_size}
 \title{Estimates the size of phenotypic spaces}
 \usage{
-space_size(X, dimensions = NULL, group, parallel = 1, type = "mcp", 
-pb = TRUE, outliers = 0.95, ...)
+space_size(
+  X,
+  dimensions = NULL,
+  group,
+  cores = 1,
+  type = "mcp",
+  pb = TRUE,
+  outliers = 0.95,
+  ...
+)
 }
 \arguments{
 \item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
@@ -14,13 +22,13 @@ pb = TRUE, outliers = 0.95, ...)
 
 \item{group}{Character vector with the name of the column (character or factor) containing group labels.}
 
-\item{parallel}{Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).}
+\item{cores}{Numeric vector of length 1. Controls whether parallel computing is applied by specifying the number of cores to be used. Default is 1 (i.e. no parallel computing).}
 
 \item{type}{Character vector of length 1. Controls the type of metric to be used for quantifying space size. Three metrics are available:
 \itemize{
  \item \code{mcp}: minimum convex polygon area using the function  \code{\link[adehabitatHR]{mcp}}. The minimum sample size (per group) must be 2 observations.
  \item \code{density}: kernel density area using the function \code{\link[adehabitatHR]{kernelUD}}. The minimum sample size (per group) must be 6 observations.
- \item \code{mst}: minimum spanning tree using the function \code{\link[vegan]{spantree}}. The minimum sample size (per group) must be 5 observations. This method is expected to be more robust to the influence of outliers.
+ \item \code{mst}: minimum spanning tree using the function \code{\link[vegan]{spantree}}. The minimum sample size (per group) must be 2 observations. This method is expected to be more robust to the influence of outliers. . Note that mst is not a actually measuring area but distance between observations. However, it still help to quantify the size of the sub-region in trait space.   
  }}
 
 \item{pb}{Logical argument to control if progress bar is shown. Default is \code{TRUE}.}
@@ -44,24 +52,24 @@ The function quantifies the size of the phenotypic sub-spaces.
 data("example_space")
 
 # plot data
-xs <- tapply(example_space$Dimension_1, example_space$ID, mean)
-ys <- tapply(example_space$Dimension_2, example_space$ID, mean)
-plot(example_space[, c("Dimension_1", "Dimension_2")], 
+xs <- tapply(example_space$dimension_1, example_space$group, mean)
+ys <- tapply(example_space$dimension_2, example_space$group, mean)
+plot(example_space[, c("dimension_1", "dimension_2")], 
 col = example_space$color, pch = 20, cex = 1.8)
 text(xs, ys, labels = names(xs), cex = 2.5)
 
 # MCP spaces
 space_size(
 X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
+dimensions =  c("dimension_1", "dimension_2"),
+group = "group",
 type = "mcp")
 
 # MST 
 space_size(
   X = example_space,
-  dimensions =  c("Dimension_1", "Dimension_2"),
-  group = "ID",
+  dimensions =  c("dimension_1", "dimension_2"),
+  group = "group",
   type = "mst")
 }
 }

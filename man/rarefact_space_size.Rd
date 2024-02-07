@@ -4,8 +4,18 @@
 \alias{rarefact_space_size}
 \title{Estimates rarefacted size of phenotypic spaces}
 \usage{
-rarefact_space_size(X, dimensions, group,  n = NULL, replace = FALSE, 
-seed = NULL, parallel = 1, pb = TRUE, iterations = 30,...)
+rarefact_space_size(
+  X,
+  dimensions,
+  group,
+  n = NULL,
+  replace = FALSE,
+  seed = NULL,
+  cores = 1,
+  pb = TRUE,
+  iterations = 30,
+  ...
+)
 }
 \arguments{
 \item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
@@ -20,7 +30,7 @@ seed = NULL, parallel = 1, pb = TRUE, iterations = 30,...)
 
 \item{seed}{Integer vector of length 1 setting the seed (see \code{\link[base]{set.seed}}). If used results should be the same on different runs, so it makes them replicable.}
 
-\item{parallel}{Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).}
+\item{cores}{Numeric vector of length 1. Controls whether parallel computing is applied by specifying the number of cores to be used. Default is 1 (i.e. no parallel computing).}
 
 \item{pb}{Logical argument to control if progress bar is shown. Default is \code{TRUE}.}
 
@@ -46,15 +56,15 @@ data("example_space")
 # (try with more iterations on your own data)
 rarefact_space_size(
 X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
+dimensions =  c("dimension_1", "dimension_2"),
+group = "group",
 type = "mcp")
 
 # mst rarefacted
 rarefact_space_size(
 X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
+dimensions =  c("dimension_1", "dimension_2"),
+group = "group",
 type = "mst")
 }
 }

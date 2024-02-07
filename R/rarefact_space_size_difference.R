@@ -1,16 +1,12 @@
 #' @title Calculates rarefacted space size differences
 #'
 #' @description \code{rarefact_space_size_difference}
-#' @usage rarefact_space_size_difference(X, dimensions, group, n = NULL, replace = FALSE, 
-#' seed = NULL, parallel = 1, pb = TRUE, iterations = 30, ...)
+#' @inheritParams template_params
 #' @param X Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels. 
 #' @param dimensions Character vector with the names of columns containing the dimensions of the phenotypic space.
 #' @param group Character vector with the name of the column (character or factor) containing group labels.
 #' @param n Integer vector of length 1 indicating the number of samples to be use for rarefaction (i.e. how many samples per group will be gather at each iteration). Default is the minimum sample size across groups.
 #' @param replace Logical argument to control if sampling is done with replacement. Default is \code{FALSE}.
-#' @param seed Integer vector of length 1 setting the seed (see \code{\link[base]{set.seed}}). If used results should be the same on different runs, so it makes them replicable.
-#' @param parallel Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).
-#' @param pb Logical argument to control if progress bar is shown. Default is \code{TRUE}.
 #' @param iterations Integer vector of length 1. Controls how the number of times the rarefaction routine is iterated. Default is 30.
 #' @param ... Additional arguments to be passed to \code{\link{space_size_difference}}.
 #' @return A data frame containing the mean, minimum, maximum and standard deviation of the space size difference across iterations for each pair of groups. 
@@ -24,8 +20,8 @@
 #' # get rarefied size difference using MCP (try with more iterations on your own data)
 #' mcp_size_diff <- rarefact_space_size_difference(
 #' X = example_space,
-#' dimensions =  c("Dimension_1", "Dimension_2"),
-#' group = "ID",
+#' dimensions =  c("dimension_1", "dimension_2"),
+#' group = "group",
 #' type = "mcp", 
 #' iterations = 5)
 #' 
@@ -40,7 +36,7 @@
 #' }
 # last modification on jan-2022 (MAS)
 
-rarefact_space_size_difference <- function(X, dimensions, group, n = NULL, replace = FALSE, seed = NULL, parallel = 1, pb = TRUE, iterations = 30, ...){
+rarefact_space_size_difference <- function(X, dimensions, group, n = NULL, replace = FALSE, seed = NULL, cores = 1, pb = TRUE, iterations = 30, ...){
   
   obs.n <- min(table(X[, group]))
   
@@ -56,7 +52,7 @@ rarefact_space_size_difference <- function(X, dimensions, group, n = NULL, repla
   X$...rownames <-  1:nrow(X) 
   
   # run iterations
-  space_size_diffs_list <- pblapply_phtpspc_int(1:iterations, cl = parallel, pbar = pb, function(e){
+  space_size_diffs_list <- pblapply_phtpspc_int(1:iterations, cl = cores, pbar = pb, function(e){
     if (!is.null(seed))
       set.seed(seed + e)
     
@@ -64,7 +60,7 @@ rarefact_space_size_difference <- function(X, dimensions, group, n = NULL, repla
       sample(X$...rownames[X[, group] == x], n, replace = replace)
     ))
     
-    size_diffs <- space_size_difference(X[raref_indices, ], group = group, dimensions = dimensions, pb = FALSE, output = "rectangular", parallel = 1, ...)
+    size_diffs <- space_size_difference(X[raref_indices, ], group = group, dimensions = dimensions, pb = FALSE, output = "rectangular", cores = 1, ...)
     
     return(size_diffs)
   })

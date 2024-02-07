@@ -4,15 +4,22 @@
 \alias{rarefact_space_similarity}
 \title{Calculates rarefacted space overlaps}
 \usage{
-rarefact_space_similarity(X, dimensions, group, n = NULL, replace = FALSE, 
-seed = NULL, parallel = 1, pb = TRUE, iterations = 30, ...)
+rarefact_space_similarity(
+  formula,
+  data,
+  n = NULL,
+  replace = FALSE,
+  seed = NULL,
+  cores = 1,
+  pb = TRUE,
+  iterations = 30,
+  ...
+)
 }
 \arguments{
-\item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
+\item{formula}{an object of class "formula" (or one that can be coerced to that class).Must follow the form \code{dim1 + dim2 ~ group} where dim1 and dim2 are the dimensions of the phenotype space and \code{group} refers to the group labels.}
 
-\item{dimensions}{Character vector with the names of columns containing the dimensions of the phenotypic space.}
-
-\item{group}{Character vector with the name of the column (character or factor) containing group labels.}
+\item{data}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
 
 \item{n}{Integer vector of length 1 indicating the number of samples to be use for rarefaction (i.e. how many samples per group will be gather at each iteration). Default is the minimum sample size across groups.}
 
@@ -20,7 +27,7 @@ seed = NULL, parallel = 1, pb = TRUE, iterations = 30, ...)
 
 \item{seed}{Integer vector of length 1 setting the seed (see \code{\link[base]{set.seed}}). If used results should be the same on different runs, so it makes them replicable.}
 
-\item{parallel}{Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).}
+\item{cores}{Numeric vector of length 1. Controls whether parallel computing is applied by specifying the number of cores to be used. Default is 1 (i.e. no parallel computing).}
 
 \item{pb}{Logical argument to control if progress bar is shown. Default is \code{TRUE}.}
 
@@ -44,18 +51,16 @@ data("example_space")
 
 # get proportion of space that overlaps (try with more iterations on your own data)
 prop_overlaps <- rarefact_space_similarity(
-X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
-type = "proportional.overlap", 
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+method = "proportional.overlap", 
 iterations = 5)
 
 # get minimum convex polygon overlap for each group (non-symmetric)
 mcp_overlaps <- rarefact_space_similarity(
-X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
-iterations = 5)
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ iterations = 5)
 
 # convert to non-symmetric triangular matrix
 rectangular_to_triangular(mcp_overlaps, symmetric = FALSE)

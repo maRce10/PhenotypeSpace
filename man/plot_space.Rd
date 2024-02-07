@@ -4,10 +4,20 @@
 \alias{plot_space}
 \title{Plot bidimensional trait spaces}
 \usage{
-plot_space(X, dimensions, indices, basecex = 1, title = NULL, 
-colors = c("#3E4A89FF", "#35B779FF"), point.alpha = 0.7, 
-background.indices = NULL, pch = 1, labels = c("sub-space", "total space"), 
-legend.pos = "topright", density.alpha = 0.6)
+plot_space(
+  X,
+  dimensions,
+  indices,
+  basecex = 1,
+  title = NULL,
+  colors = c("#3E4A89FF", "#35B779FF"),
+  point.alpha = 0.7,
+  background.indices = NULL,
+  pch = 1,
+  labels = c("sub-space", "total space"),
+  legend.pos = "topright",
+  density.alpha = 0.6
+)
 }
 \arguments{
 \item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) of the total trait space. This is required so the extent of the plotting area represents the overall trait space in which the sub-space is found.}
@@ -48,26 +58,30 @@ The function plots a sub-group of data (i.e. sub-space) within the overall trait
 data("example_space")
 
 # no background
-plot_space(X = example_space, dimensions = c("Dimension_1", "Dimension_2"), 
-indices = which(example_space$ID == "G2"))
+plot_space(X = example_space, dimensions = c("dimension_1", "dimension_2"), 
+indices = which(example_space$group == "G2"))
 
 # add background
-plot_space(X = example_space, dimensions = c("Dimension_1", "Dimension_2"), 
-indices = which(example_space$ID == "G2"), background.indices = which(example_space$ID != "G2"))
+plot_space(X = example_space, dimensions = c("dimension_1", "dimension_2"), 
+indices = which(example_space$group == "G2"), 
+background.indices = which(example_space$group != "G2"))
 
 # change legend labels
-plot_space(X = example_space, dimensions = c("Dimension_1", "Dimension_2"), 
-indices = which(example_space$ID == "G2"), background.indices = which(example_space$ID != "G2"), 
+plot_space(X = example_space, dimensions = c("dimension_1", "dimension_2"), 
+indices = which(example_space$group == "G2"), 
+background.indices = which(example_space$group != "G2"), 
 labels = c("G3", "trait space"))
 
 # change legend position
-plot_space(X = example_space, dimensions = c("Dimension_1", "Dimension_2"), 
-indices = which(example_space$ID == "G2"), background.indices = which(example_space$ID != "G2"), 
+plot_space(X = example_space, dimensions = c("dimension_1", "dimension_2"), 
+indices = which(example_space$group == "G2"), 
+background.indices = which(example_space$group != "G2"), 
 labels = c("G3", "trait space"), legend.pos = "left")
 
 # with title
-plot_space(X = example_space, dimensions = c("Dimension_1", "Dimension_2"), 
-indices = which(example_space$ID == "G2"), background.indices = which(example_space$ID != "G2"), 
+plot_space(X = example_space, dimensions = c("dimension_1", "dimension_2"), 
+indices = which(example_space$group == "G2"), 
+background.indices = which(example_space$group != "G2"), 
 labels = c("G3", "trait space"), legend.pos = "bottomleft", title = "G3")
 }
 }

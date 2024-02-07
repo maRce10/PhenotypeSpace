@@ -17,6 +17,8 @@
 #' @import utils
 #' @import stats
 #' @import proxy
+#' @importFrom methods is
+#' @importFrom rlang check_installed
 #' @importFrom rgeos gIntersection
 #' @importFrom vegan spantree
 #' @importFrom utils combn
@@ -32,8 +34,11 @@
 #'   Maintainer: Marcelo Araya-Salas (\email{marcelo.araya@@ucr.ac.cr})
 #'
 #' @docType package
-#' @name PhenotypeSpace
 #' @details License: GPL (>= 2)
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
+## usethis namespace: end
 NULL
-#> NULL
-#'
+

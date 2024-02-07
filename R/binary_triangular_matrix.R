@@ -1,7 +1,6 @@
 #' @title Get binary triangular matrices
 #'
 #' @description \code{binary_triangular_matrix} creates binary triangular matrices representing categorical data in a distance matrix form
-#' @usage binary_triangular_matrix(group, labels = NULL)
 #' @param group Character vector or factor containing categories to be represented as a pairwise binary matrix. Several observations per categories (at least some categories) are required. 
 #' @param labels Character vector or factor containing labels to be used for rows/columns in the output matrix. Optional. Default is \code{NULL}.
 #' @return  A pairwise distance matrix that represents group membership. See details.

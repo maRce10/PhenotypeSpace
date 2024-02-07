@@ -4,8 +4,16 @@
 \alias{space_size_difference}
 \title{Estimates pairwise size differences of phenotypic spaces}
 \usage{
-space_size_difference(X, dimensions, group, parallel = 1, type = "mcp", 
-pb = TRUE, outliers = 0.95, ...)
+space_size_difference(
+  X,
+  dimensions,
+  group,
+  cores = 1,
+  type = "mcp",
+  pb = TRUE,
+  outliers = 0.95,
+  ...
+)
 }
 \arguments{
 \item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
@@ -14,7 +22,7 @@ pb = TRUE, outliers = 0.95, ...)
 
 \item{group}{Character vector with the name of the column (character or factor) containing group labels.}
 
-\item{parallel}{Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).}
+\item{cores}{Numeric vector of length 1. Controls whether parallel computing is applied by specifying the number of cores to be used. Default is 1 (i.e. no parallel computing).}
 
 \item{type}{Character vector of length 1. Controls the type of metric to be used for quantifying space size. Three metrics are available:
 \itemize{
@@ -46,15 +54,15 @@ data("example_space")
 # MCP size (try with more iterations on your own data)
 mcp_size <- space_size_difference(
 X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
+dimensions =  c("dimension_1", "dimension_2"),
+group = "group",
 type = "mcp")
 
 # MST size
 mcp_size <- space_size_difference(
 X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
+dimensions =  c("dimension_1", "dimension_2"),
+group = "group",
 type = "mst")
 }
 }

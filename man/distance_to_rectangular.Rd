@@ -4,8 +4,13 @@
 \alias{distance_to_rectangular}
 \title{Convert pairwise distance matrices to rectangular matrices}
 \usage{
-distance_to_rectangular(distance.matrix, labels = names(distance.matrix), 
-n.dimensions = 2, metric = TRUE, ...)
+distance_to_rectangular(
+  distance.matrix,
+  labels = names(distance.matrix),
+  n.dimensions = 2,
+  metric = TRUE,
+  ...
+)
 }
 \arguments{
 \item{distance.matrix}{Distance matrix (i.e. object of class 'dist'). Can be created using the function \code{\link[stats]{dist}} or converted to using  \code{\link[stats]{as.dist}}.}
@@ -16,7 +21,7 @@ n.dimensions = 2, metric = TRUE, ...)
 
 \item{metric}{Logical argument to control if Metric (a.k.a. Classical, \code{TRUE}, default) or Non-Metric MUltidimensional Scaling (\code{FALSE}) is used to project in a new n-dimension space. Non-Metric MDS is conducted using the function \code{\link[MASS]{isoMDS}} while Classical MDS uses the function \code{\link[stats]{cmdscale}}. So yes, it is a silly wrapper over those 2 functions.}
 
-\item{...}{Additional arguments to be passed to \code{\link[MASS]{isoMDS}}.}
+\item{...}{Additional arguments to be passed to \code{\link[caret]{train}} (only used for machine learning models).}
 }
 \value{
 A data frame with the new dimensions representing the position of observations in a new n-dimension space. If \code{metric = FALSE} the output data frame is embedded in a list that also includes the stress value.
@@ -31,8 +36,8 @@ It is a silly wrapper over 2 multidimensional scaling functions (\code{\link[MAS
 {
 data("example_space")
 
-dist_example <- dist(example_space[example_space$ID \%in\% c("G1", "G2"), 
-c("Dimension_1", "Dimension_2")])
+dist_example <- dist(example_space[example_space$group \%in\% c("G1", "G2"), 
+c("dimension_1", "dimension_2")])
 
 # convert into a 2-dimension space
 rect_example <- distance_to_rectangular(distance.matrix = dist_example,

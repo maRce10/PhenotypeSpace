@@ -29,20 +29,18 @@ data("example_space")
 
 # get proportion of space that overlaps 
 prop_overlaps <- space_similarity(
-X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
-type = "proportional.overlap")
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ type = "proportional.overlap")
 
 # get symmetric triangular matrix
 rectangular_to_triangular(prop_overlaps)
 
 # get minimum convex polygon overlap for each group (non-symmetric)
 mcp_overlaps <- space_similarity(
-X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
-type = "mcp.overlap")
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ type = "mcp.overlap")
 
 # get a non-symmetric triangular matrix
 rectangular_to_triangular(mcp_overlaps, symmetric = FALSE)

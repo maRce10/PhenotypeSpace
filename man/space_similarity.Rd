@@ -4,36 +4,49 @@
 \alias{space_similarity}
 \title{Pairwise similarities of phenotype spaces}
 \usage{
-space_similarity(X, dimensions, group, parallel = 1, type = "mcp.overlap", 
-pb = TRUE, outliers = 0.95, pairwise.scale = FALSE, distance.method = "Euclidean")
+space_similarity(
+  formula,
+  data,
+  cores = 1,
+  method = "mcp.overlap",
+  pb = TRUE,
+  outliers = 0.95,
+  pairwise.scale = FALSE,
+  distance.method = "Euclidean",
+  seed = NULL,
+  ...
+)
 }
 \arguments{
-\item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
+\item{formula}{an object of class "formula" (or one that can be coerced to that class).Must follow the form \code{dim1 + dim2 ~ group} where dim1 and dim2 are the dimensions of the phenotype space and \code{group} refers to the group labels.}
 
-\item{dimensions}{Character vector with the names of the columns containing the dimensions of the phenotypic space. For similarity metrics using overlap 2 dimensions are required. Distance metrics can used any number of dimensions.}
+\item{data}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
 
-\item{group}{Character vector with the name of the column (character or factor) containing group labels.}
+\item{cores}{Numeric vector of length 1. Controls whether parallel computing is applied by specifying the number of cores to be used. Default is 1 (i.e. no parallel computing).}
 
-\item{parallel}{Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).}
-
-\item{type}{Character vector of length 1. Controls the type of (di)similarity metric to be compare the phenotypic sub-spaces of two groups at the time. Seven metrics are available which quantify as pairwise sub-space overlap ('similarity') or pairwise distance between sub-spaces ('dissimilarity'):
+\item{method}{Character vector of length 1. Controls the method of (di)similarity metric to be compare the phenotypic sub-spaces of two groups at the time. Seven built-in metrics are available which quantify as pairwise sub-space overlap ('similarity') or pairwise distance between bi-dimensional sub-spaces ('dissimilarity'):
 \itemize{
- \item \code{density.overlap}: proportion of the phenotypic sub-spaces area that overlap, taking into account the irregular densities of the sub-spaces. Two groups that share their higher density areas will be more similar than similar sub-spaces that only share their lower density areas. Two values are supplied as the proportion of the space of A that overlaps B is not necessarily the same as the proportion of B that overlaps A. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 6 observations. 
+ \item \code{density.overlap}: proportion of the phenotypic sub-spaces area that overlap, taking into account the irregular densities of the sub-spaces. Two groups that share their higher density areas will be more similar than similar sub-spaces that only share their lower density areas. Two values are supplied as the proportion of the space of A that overlaps B is not necessarily the same as the proportion of B that overlaps A. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 6 observations.
  \item \code{mean.density.overlap}: similar to 'density.overlap' but the two values are merged into a single pairwise mean overlap. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 6 observations.
  \item \code{mcp.overlap}: proportion of the phenotypic sub-spaces area that overlap, in which areas are calculated as the minimum convex polygon of all observations for each su-space. Two values are supplied as the proportion of the space of A that overlaps B is not necessarily the same as the proportion of B that overlaps A. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.
  \item \code{mean.mcp.overlap}: similar to 'mcp.overlap' but the two values are merged into a single pairwise mean overlap. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.
  \item \code{proportional.overlap}: proportion of the joint area of both sub-spaces that overlaps (overlapped area / total area of both groups). Sub-space areas are calculated as the minimum convex polygon. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.
  \item \code{distance}: mean euclidean pairwise distance between all observations of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
  \item \code{centroid.distance}: euclidean distance between the centroid of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
- }}
+ }
+ In addition, machine learning classification models can also be used for quantify dissimilarity as a measured of how discriminable two groups are. These models can use more than two dimensions to represent phenotyypic spaces. The following classification models can be used: "AdaBag",           "avNNet", "bam", "C5.0", "C5.0Cost", "C5.0Rules", "C5.0Tree", "gam", "gamLoess", "glmnet",   "glmStepAIC", "kernelpls", "kknn", "lda", "lda2", "LogitBoost", "msaenet", "multinom", "nnet",     "null", "ownn", "parRF", "pcaNNet", "pls", "plsRglm", "pre", "qda", "randomGLM", "rf", "rFerns", "rocc", "rotationForest", "rotationForestCp", "RRF", "RRFglobal", "sda", "simpls", "slda", "smda", "snn", "sparseLDA", "svmLinear2", "svmLinearWeights", "treebag", "widekernelpls" and "wsrf". See  \url{https://topepo.github.io/caret/train-models-by-tag.html} for details on each of these models. Additional arguments can be pased using \code{...}. Note that some machine learning methods can significantly affect co}
 
 \item{pb}{Logical argument to control if progress bar is shown. Default is \code{TRUE}.}
 
-\item{outliers}{Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.}
+\item{outliers}{Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid. Ignored when using machine learning methods.}
 
-\item{pairwise.scale}{Logical argument to control if pairwise phenotypic spaces are scaled (i.e. z-transformed) prior to similarity estimation. If so (\code{TRUE}) similarities are decoupled from the size of the global phenotypic space. Useful to compare similarities coming from different phenotypic spaces. Default is \code{FALSE}. Not available for 'density.overlap' and 'mean.density.overlap'.}
+\item{pairwise.scale}{Logical argument to control if pairwise phenotypic spaces are scaled (i.e. z-transformed) prior to similarity estimation. If so (\code{TRUE}) similarities are decoupled from the size of the global phenotypic space. Useful to compare similarities coming from different phenotypic spaces. Default is \code{FALSE}. Not available for 'density.overlap', 'mean.density.overlap' or any machine learning model.}
 
-\item{distance.method}{Character vector of length 1 indicating the method to be used for measuring distances (hence only applicable when distances are calculated). Default is 'Euclidean'. All distance and similarity measures available in \code{\link[proxy]{dist}} can be used (but note that not all of them apply to continuous data). Check available metrics by running \code{summary(proxy::pr_DB)}. If a similarity measure is used similarities are converted to distances.}
+\item{distance.method}{Character vector of length 1 indicating the method to be used for measuring distances (hence only applicable when distances are calculated). Available distance measures are: "Euclidean" (default), "Manhattan", "supremum", "Canberra", "Wave", "divergence", "Bray", "Soergel", "Podani", "Chord", "Geodesic" and "Whittaker". If a similarity measure is used similarities are converted to distances.}
+
+\item{seed}{Integer number containing the random number generator (RNG) state for random number generation in order to make results from the machine learning stochastic methods replicable.}
+
+\item{...}{Additional arguments to be passed to \code{\link[caret]{train}}.}
 }
 \value{
 A data frame containing the similarity metric for each pair of groups. If the similarity metric is not symmetric (e.g. the proportional area of A that overlaps B is not necessarily the same as the area of B that overlaps A, see \code{\link{space_similarity}}) separated columns are supplied for the two comparisons.
@@ -42,51 +55,81 @@ A data frame containing the similarity metric for each pair of groups. If the si
 \code{space_similarity} estimate pairwise similarities of phenotype spaces
 }
 \details{
-The function quantifies pairwise similarity between phenotypic sub-spaces. Similarity is evaluated as the overlap (similarity) or distance (dissimilarity) between group.
+The function quantifies pairwise similarity between phenotypic sub-spaces. The built-in methods quantify similarity as the overlap (similarity, or machine learning based discriminability) or distance (dissimilarity) between group. Machine learning methods implemented in the caret package function \code{\link[caret]{train}} are available to assess the similarity of spaces as the proportion of observations that are incorrectly classified. In this case group overlaps are the class-wise errors (if available) while the mean overlap is calculated as \code{1- model accuracy}.
 }
 \examples{
 {
 # load data
 data("example_space")
 
-# get proportion of space that overlaps 
+# get proportion of space that overlaps
 prop_overlaps <- space_similarity(
-X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
-type = "proportional.overlap")
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ type = "proportional.overlap")
 
 #' # get symmetric triangular matrix
 rectangular_to_triangular(prop_overlaps)
 
 # get minimum convex polygon overlap for each group (non-symmetric)
 mcp_overlaps <- space_similarity(
-X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
-type = "mcp.overlap")
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ method = "mcp.overlap")
 
 # convert to non-symmetric triangular matrix
 rectangular_to_triangular(mcp_overlaps, symmetric = FALSE)
 
-# check available distance measures 
+# check available distance measures
 summary(proxy::pr_DB)
 
 # get eculidean distances (default)
 area_dist <- space_similarity(
-X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
-type = "distance",
-distance.method = "Euclidean")
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ method = "distance",
+ distance.method = "Euclidean")
 
-# get Canberra distances 
+# get Canberra distances
 area_dist <- space_similarity(
-X = example_space,
-dimensions =  c("Dimension_1", "Dimension_2"),
-group = "ID",
-type = "distance",
-distance.method = "Canberra")
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ method = "distance",
+ distance.method = "Canberra")
+
+## using machine learning classification methods
+
+# check if caret package and needed dependencies are available
+ rlang::check_installed("caret")
+ rlang::check_installed("randomForest")
+ 
+# random forest 3 dimension data, using 5 repeats and repeated CV resampling
+# extract data subset
+sub_data <- example_space[example_space$group \%in\% c("G1", "G2", "G3"), ]
+
+# set method parameters
+ctrl <- caret::trainControl(method = "repeatedcv", repeats = 5)
+
+# get similarities ("overlap")
+space_similarity(
+ formula = group ~ dimension_1 + dimension_2 + dimension_3,
+ data = sub_data,
+ method = "rf",
+ trControl = ctrl, 
+ tuneLength = 4,
+ seed = 123
+)
+
+# Single C5.0 Tree using boot resampling
+ctrl <- caret::trainControl(method = "boot")
+
+space_similarity(
+ formula = group ~ dimension_1 + dimension_2,
+ data = sub_data,
+ method = "C5.0Tree",
+ trControl = ctrl,
+ tuneLength =  3
+)
 }
 }
 \references{

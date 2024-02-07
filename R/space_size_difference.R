@@ -1,19 +1,16 @@
 #' @title Estimates pairwise size differences of phenotypic spaces
 #'
 #' @description \code{space_size_difference}
-#' @usage space_size_difference(X, dimensions, group, parallel = 1, type = "mcp", 
-#' pb = TRUE, outliers = 0.95, ...)
+#' @inheritParams template_params
 #' @param X Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels. 
 #' @param dimensions Character vector with the names of columns containing the dimensions of the phenotypic space.
 #' @param group Character vector with the name of the column (character or factor) containing group labels.
-#' @param parallel Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).
 #' @param type Character vector of length 1. Controls the type of metric to be used for quantifying space size. Three metrics are available:
 #' \itemize{
 #'  \item \code{mcp}: minimum convex polygon area using the function  \code{\link[adehabitatHR]{mcp}}. The minimum sample size (per group) must be 2 observations.
 #'  \item \code{density}: kernel density area using the function \code{\link[adehabitatHR]{kernelUD}}. The minimum sample size (per group) must be 6 observations.
 #'  \item \code{mst}: minimum spanning tree using the function \code{\link[vegan]{spantree}}. The minimum sample size (per group) must be 5 observations. This method is expected to be more robust to the influence of outliers.
 #'  }
-#' @param pb Logical argument to control if progress bar is shown. Default is \code{TRUE}.
 #' @param outliers Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.
 #' @param ... Additional arguments to be passed to \code{\link{space_size}} for customizing space size calculation.
 #' @return A data frame containing the space size difference for each pair of groups. 
@@ -27,15 +24,15 @@
 #' # MCP size (try with more iterations on your own data)
 #' mcp_size <- space_size_difference(
 #' X = example_space,
-#' dimensions =  c("Dimension_1", "Dimension_2"),
-#' group = "ID",
+#' dimensions =  c("dimension_1", "dimension_2"),
+#' group = "group",
 #' type = "mcp")
 #' 
 #' # MST size
 #' mcp_size <- space_size_difference(
 #' X = example_space,
-#' dimensions =  c("Dimension_1", "Dimension_2"),
-#' group = "ID",
+#' dimensions =  c("dimension_1", "dimension_2"),
+#' group = "group",
 #' type = "mst")
 #' }
 #' @seealso \code{\link{space_size}}, \code{\link{space_similarity}}, \code{\link{rarefact_space_size_difference}}
@@ -46,7 +43,7 @@
 #' }
 # last modification on jan-2022 (MAS)
 
-space_size_difference <- function(X, dimensions, group, parallel = 1, type = "mcp", pb = TRUE, outliers = 0.95, ...){
+space_size_difference <- function(X, dimensions, group, cores = 1, type = "mcp", pb = TRUE, outliers = 0.95, ...){
   
   group_combs <- t(utils::combn(sort(unique(X[, group])), 2))
   
@@ -62,7 +59,7 @@ space_size_difference <- function(X, dimensions, group, parallel = 1, type = "mc
     
     Y <- rbind(W, Z, both)
     
-    sizes <- space_size(X = Y, dimensions = dimensions, group = group,  parallel = 1, type = type, pb = FALSE, outliers = outliers)
+    sizes <- space_size(X = Y, dimensions = dimensions, group = group,  cores = 1, type = type, pb = FALSE, outliers = outliers)
     
     size.diff <- sizes$size[sizes$group == group_combs[x, 1]] - sizes$size[sizes$group == group_combs[x, 2]]
     
@@ -73,7 +70,6 @@ space_size_difference <- function(X, dimensions, group, parallel = 1, type = "mc
   })
   
   result <- do.call(rbind, propspace_size_diff_list)
-  
-  
+
   return(result)  
 }

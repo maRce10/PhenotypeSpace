@@ -1,7 +1,6 @@
 #' @title Convert rectangular pairwise matrices to triangular matrices
 #'
 #' @description \code{rectangular_to_triangular} converts rectangular pairwise matrices as those output by many PhenotypeSpace functions into triangular pairwise matrices. 
-#' @usage rectangular_to_triangular(X, distance = TRUE, symmetric = TRUE)
 #' @param X Data frame containing three columns. The first two columns must contain group labels which will appear as rows (1 column) and column names (2 column) in the output triangular matrix. The third column (and fourth column if \code{symmetric = FALSE}) must have the numeric values to be included in the output triangular matrix. 
 #' @param distance Logical argument to control if the input data contains pairwise distances (dissimilarities) or similarities. If \code{TRUE} then diagonal values are filled with 0, otherwise they are filled with 1. Note that diagonal values can be set with \code{\link[base]{diag}}.
 #' @param symmetric Logical argument to define if values are duplicated on both off-diagonal triangles (a symmetric triangular matrix, \code{symmetric = TRUE}, default) or each triangle is filled with values from different columns (a non-symmetric triangular matrix, \code{symmetric = FALSE}). In the latter the upper triangle is filled with the first column and the lower triangle with the second column. In this case, a fourth column with numeric values should be supplied.    
@@ -15,20 +14,18 @@
 #' 
 #' # get proportion of space that overlaps 
 #' prop_overlaps <- space_similarity(
-#' X = example_space,
-#' dimensions =  c("Dimension_1", "Dimension_2"),
-#' group = "ID",
-#' type = "proportional.overlap")
+#'  formula = group ~ dimension_1 + dimension_2,
+#'  data = example_space,
+#'  type = "proportional.overlap")
 #' 
 #' # get symmetric triangular matrix
 #' rectangular_to_triangular(prop_overlaps)
 #' 
 #' # get minimum convex polygon overlap for each group (non-symmetric)
 #' mcp_overlaps <- space_similarity(
-#' X = example_space,
-#' dimensions =  c("Dimension_1", "Dimension_2"),
-#' group = "ID",
-#' type = "mcp.overlap")
+#'  formula = group ~ dimension_1 + dimension_2,
+#'  data = example_space,
+#'  type = "mcp.overlap")
 #' 
 #' # get a non-symmetric triangular matrix
 #' rectangular_to_triangular(mcp_overlaps, symmetric = FALSE)

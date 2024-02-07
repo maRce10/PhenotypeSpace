@@ -1,16 +1,9 @@
 #' @title Calculates rarefacted space overlaps
 #'
 #' @description \code{rarefact_space_similarity}
-#' @usage rarefact_space_similarity(X, dimensions, group, n = NULL, replace = FALSE, 
-#' seed = NULL, parallel = 1, pb = TRUE, iterations = 30, ...)
-#' @param X Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels. 
-#' @param dimensions Character vector with the names of columns containing the dimensions of the phenotypic space.
-#' @param group Character vector with the name of the column (character or factor) containing group labels.
+#' @inheritParams template_params
 #' @param n Integer vector of length 1 indicating the number of samples to be use for rarefaction (i.e. how many samples per group will be gather at each iteration). Default is the minimum sample size across groups.
 #' @param replace Logical argument to control if sampling is done with replacement. Default is \code{FALSE}.
-#' @param seed Integer vector of length 1 setting the seed (see \code{\link[base]{set.seed}}). If used results should be the same on different runs, so it makes them replicable.
-#' @param parallel Integer vector of length 1. Controls whether parallel computing is applied. It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).
-#' @param pb Logical argument to control if progress bar is shown. Default is \code{TRUE}.
 #' @param iterations Integer vector of length 1. Controls how the number of times the rarefaction routine is iterated. Default is 30.
 #' @param ... Additional arguments to be passed to \code{\link{space_similarity}} for customizing similarity measurements.
 #' @return A data frame containing the mean, minimum, maximum and standard deviation of the similarity metric across iterations for each pair of groups. If the similarity metric is not symmetric (e.g. the proportional area of A that overlaps B is not necessarily the same as the area of B that overlaps A, see \code{\link{space_similarity}}) separated columns are supplied for the two comparisons. 
@@ -23,18 +16,16 @@
 #' 
 #' # get proportion of space that overlaps (try with more iterations on your own data)
 #' prop_overlaps <- rarefact_space_similarity(
-#' X = example_space,
-#' dimensions =  c("Dimension_1", "Dimension_2"),
-#' group = "ID",
-#' type = "proportional.overlap", 
+#'  formula = group ~ dimension_1 + dimension_2,
+#'  data = example_space,
+#' method = "proportional.overlap", 
 #' iterations = 5)
 #' 
 #' # get minimum convex polygon overlap for each group (non-symmetric)
 #' mcp_overlaps <- rarefact_space_similarity(
-#' X = example_space,
-#' dimensions =  c("Dimension_1", "Dimension_2"),
-#' group = "ID",
-#' iterations = 5)
+#'  formula = group ~ dimension_1 + dimension_2,
+#'  data = example_space,
+#'  iterations = 5)
 #' 
 #' # convert to non-symmetric triangular matrix
 #' rectangular_to_triangular(mcp_overlaps, symmetric = FALSE)
@@ -47,9 +38,22 @@
 #' }
 # last modification on jan-2022 (MAS)
 
-rarefact_space_similarity <- function(X, dimensions, group, n = NULL, replace = FALSE, seed = NULL, parallel = 1, pb = TRUE, iterations = 30, ...){
+rarefact_space_similarity <- function(formula,
+                                      data,
+                                      n = NULL,
+                                      replace = FALSE,
+                                      seed = NULL,
+                                      cores = 1,
+                                      pb = TRUE,
+                                      iterations = 30,
+                                      ...) {
   
-  obs.n <- min(table(X[, group]))
+  # get term names from formula 
+  form_terms <- terms(formula)
+  dimensions <- attr(form_terms, "term.labels")
+  group <- as.character(form_terms[[2]])
+  
+  obs.n <- min(table(data[, group]))
   
   if (!is.null(n)) {
     if (obs.n < n) {
@@ -60,18 +64,18 @@ rarefact_space_similarity <- function(X, dimensions, group, n = NULL, replace = 
   } else 
     n <- obs.n
   
-  X$...rownames <-  1:nrow(X) 
+  data$...rownames <-  1:nrow(data) 
   
   # run iterations
-  space_similarities_list <- pblapply_phtpspc_int(1:iterations, cl = parallel, pbar = pb, function(e){
+  space_similarities_list <- pblapply_phtpspc_int(1:iterations, cl = cores, pbar = pb, function(e){
     if (!is.null(seed))
       set.seed(seed + e)
     
-    raref_indices <- unlist(lapply(sort(unique(X[, group])), function(x)
-      sample(X$...rownames[X[, group] == x], n, replace = replace)
+    raref_indices <- unlist(lapply(sort(unique(data[, group])), function(x)
+      sample(data$...rownames[data[, group] == x], n, replace = replace)
     ))
     
-    overlaps <- space_similarity(X[raref_indices, ], group = group, dimensions = dimensions, pb = FALSE, parallel = 1, ...)
+    overlaps <- space_similarity(data[raref_indices, ], formula = formula, pb = FALSE, cores = 1, seed = seed, ...)
     
     return(overlaps)
   })
@@ -88,7 +92,7 @@ rarefact_space_similarity <- function(X, dimensions, group, n = NULL, replace = 
       type <- "mcp.overlap" # default value in space_similarity()
   
   # create output data frame
-  if (type %in% c("mean.density.overlap", "mean.mcp.overlap", "centroid.distance", "proportional.overlap", "distance")){
+  if (!any(names(space_similarities_list[[1]]) == "overlap.1in2")){
   results$mean.similarity <- rowMeans(space_similarities_mat)
   results$min.similarity <- apply(X = space_similarities_mat, MARGIN = 1, FUN = min)  
   results$max.similarity <- apply(X = space_similarities_mat, MARGIN = 1, FUN = max)  
