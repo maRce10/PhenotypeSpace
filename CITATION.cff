@@ -1,0 +1,397 @@
+# --------------------------------------------
+# CITATION file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# --------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "PhenotypeSpace" in publications use:'
+type: software
+license: GPL-2.0-or-later
+title: 'PhenotypeSpace: Quantifying phenotypic spaces'
+version: 0.1.0
+abstract: Facilitates quantifying phenotypic trait spaces and comparing spaces across
+  groups.
+authors:
+- family-names: Araya-Salas
+  given-names: Marcelo
+  email: marcelo.araya@ucr.ac.cr
+  orcid: https://orcid.org/0000-0003-3594-619X
+- family-names: Odom
+  given-names: Karan
+  email: kjodom@gmail.com
+preferred-citation:
+  type: generic
+  title: 'PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces'
+  authors:
+  - family-names: Araya-Salas
+    given-names: M.
+  - family-names: Odom
+    given-names: K.
+  year: '2022'
+repository: https://CRAN.R-project.org/package=PhenotypeSpace
+repository-code: https://github.com/maRce10/PhenotypeSpace/issues/
+url: https://marce10.github.io/PhenotypeSpace/
+contact:
+- family-names: Araya-Salas
+  given-names: Marcelo
+  email: marcelo.araya@ucr.ac.cr
+  orcid: https://orcid.org/0000-0003-3594-619X
+references:
+- type: software
+  title: pbapply
+  abstract: 'pbapply: Adding Progress Bar to ''*apply'' Functions'
+  notes: Imports
+  url: https://github.com/psolymos/pbapply
+  repository: https://CRAN.R-project.org/package=pbapply
+  authors:
+  - family-names: Solymos
+    given-names: Peter
+    email: psolymos@gmail.com
+    orcid: https://orcid.org/0000-0001-7337-1740
+  - family-names: Zawadzki
+    given-names: Zygmunt
+    email: zygmunt@zstat.pl
+  year: '2024'
+  doi: 10.32614/CRAN.package.pbapply
+- type: software
+  title: viridis
+  abstract: 'viridis: Colorblind-Friendly Color Maps for R'
+  notes: Imports
+  url: https://sjmgarnier.github.io/viridis/
+  repository: https://CRAN.R-project.org/package=viridis
+  authors:
+  - family-names: Garnier
+    given-names: Simon
+    email: garnier@njit.edu
+  year: '2024'
+  doi: 10.32614/CRAN.package.viridis
+- type: software
+  title: adehabitatHR
+  abstract: 'adehabitatHR: Home Range Estimation'
+  notes: Imports
+  repository: https://CRAN.R-project.org/package=adehabitatHR
+  authors:
+  - family-names: Calenge
+    given-names: Clement
+    email: clement.calenge@ofb.gouv.fr
+  year: '2024'
+  doi: 10.32614/CRAN.package.adehabitatHR
+- type: software
+  title: sp
+  abstract: 'sp: Classes and Methods for Spatial Data'
+  notes: Imports
+  url: https://github.com/edzer/sp/
+  repository: https://CRAN.R-project.org/package=sp
+  authors:
+  - family-names: Pebesma
+    given-names: Edzer
+    email: edzer.pebesma@uni-muenster.de
+  - family-names: Bivand
+    given-names: Roger
+    email: Roger.Bivand@nhh.no
+  year: '2024'
+  doi: 10.32614/CRAN.package.sp
+- type: software
+  title: stats
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  institution:
+    name: R Foundation for Statistical Computing
+    address: Vienna, Austria
+  year: '2024'
+- type: software
+  title: raster
+  abstract: 'raster: Geographic Data Analysis and Modeling'
+  notes: Imports
+  url: https://rspatial.org/raster
+  repository: https://CRAN.R-project.org/package=raster
+  authors:
+  - family-names: Hijmans
+    given-names: Robert J.
+    email: r.hijmans@gmail.com
+    orcid: https://orcid.org/0000-0001-5872-2872
+  year: '2024'
+  doi: 10.32614/CRAN.package.raster
+- type: software
+  title: MASS
+  abstract: 'MASS: Support Functions and Datasets for Venables and Ripley''s MASS'
+  notes: Imports
+  url: http://www.stats.ox.ac.uk/pub/MASS4/
+  repository: https://CRAN.R-project.org/package=MASS
+  authors:
+  - family-names: Ripley
+    given-names: Brian
+    email: ripley@stats.ox.ac.uk
+  year: '2024'
+  doi: 10.32614/CRAN.package.MASS
+- type: software
+  title: vegan
+  abstract: 'vegan: Community Ecology Package'
+  notes: Imports
+  url: https://github.com/vegandevs/vegan
+  repository: https://CRAN.R-project.org/package=vegan
+  authors:
+  - family-names: Oksanen
+    given-names: Jari
+    email: jhoksane@gmail.com
+  - family-names: Simpson
+    given-names: Gavin L.
+    email: ucfagls@gmail.com
+  - family-names: Blanchet
+    given-names: F. Guillaume
+  - family-names: Kindt
+    given-names: Roeland
+  - family-names: Legendre
+    given-names: Pierre
+  - family-names: Minchin
+    given-names: Peter R.
+  - family-names: O'Hara
+    given-names: R.B.
+  - family-names: Solymos
+    given-names: Peter
+  - family-names: Stevens
+    given-names: M. Henry H.
+  - family-names: Szoecs
+    given-names: Eduard
+  - family-names: Wagner
+    given-names: Helene
+  - family-names: Barbour
+    given-names: Matt
+  - family-names: Bedward
+    given-names: Michael
+  - family-names: Bolker
+    given-names: Ben
+  - family-names: Borcard
+    given-names: Daniel
+  - family-names: Carvalho
+    given-names: Gustavo
+  - family-names: Chirico
+    given-names: Michael
+  - family-names: De Caceres
+    given-names: Miquel
+  - family-names: Durand
+    given-names: Sebastien
+  - family-names: Evangelista
+    given-names: Heloisa Beatriz Antoniazi
+  - family-names: FitzJohn
+    given-names: Rich
+  - family-names: Friendly
+    given-names: Michael
+  - family-names: Furneaux
+    given-names: Brendan
+  - family-names: Hannigan
+    given-names: Geoffrey
+  - family-names: Hill
+    given-names: Mark O.
+  - family-names: Lahti
+    given-names: Leo
+  - family-names: McGlinn
+    given-names: Dan
+  - family-names: Ouellette
+    given-names: Marie-Helene
+  - family-names: Ribeiro Cunha
+    given-names: Eduardo
+  - family-names: Smith
+    given-names: Tyler
+  - family-names: Stier
+    given-names: Adrian
+  - family-names: Ter Braak
+    given-names: Cajo J.F.
+  - family-names: Weedon
+    given-names: James
+  year: '2024'
+  doi: 10.32614/CRAN.package.vegan
+- type: software
+  title: spatstat.explore
+  abstract: 'spatstat.explore: Exploratory Data Analysis for the ''spatstat'' Family'
+  notes: Imports
+  url: http://spatstat.org/
+  repository: https://CRAN.R-project.org/package=spatstat.explore
+  authors:
+  - family-names: Baddeley
+    given-names: Adrian
+    email: Adrian.Baddeley@curtin.edu.au
+    orcid: https://orcid.org/0000-0001-9499-8382
+  - family-names: Turner
+    given-names: Rolf
+    email: rolfturner@posteo.net
+    orcid: https://orcid.org/0000-0001-5521-5218
+  - family-names: Rubak
+    given-names: Ege
+    email: rubak@math.aau.dk
+    orcid: https://orcid.org/0000-0002-6675-533X
+  year: '2024'
+  doi: 10.32614/CRAN.package.spatstat.explore
+- type: software
+  title: spatstat.geom
+  abstract: 'spatstat.geom: Geometrical Functionality of the ''spatstat'' Family'
+  notes: Imports
+  url: http://spatstat.org/
+  repository: https://CRAN.R-project.org/package=spatstat.geom
+  authors:
+  - family-names: Baddeley
+    given-names: Adrian
+    email: Adrian.Baddeley@curtin.edu.au
+    orcid: https://orcid.org/0000-0001-9499-8382
+  - family-names: Turner
+    given-names: Rolf
+    email: rolfturner@posteo.net
+    orcid: https://orcid.org/0000-0001-5521-5218
+  - family-names: Rubak
+    given-names: Ege
+    email: rubak@math.aau.dk
+    orcid: https://orcid.org/0000-0002-6675-533X
+  year: '2024'
+  doi: 10.32614/CRAN.package.spatstat.geom
+- type: software
+  title: proxy
+  abstract: 'proxy: Distance and Similarity Measures'
+  notes: Imports
+  repository: https://CRAN.R-project.org/package=proxy
+  authors:
+  - family-names: Meyer
+    given-names: David
+    email: David.Meyer@R-project.org
+  - family-names: Buchta
+    given-names: Christian
+  year: '2024'
+  doi: 10.32614/CRAN.package.proxy
+- type: software
+  title: grDevices
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  institution:
+    name: R Foundation for Statistical Computing
+    address: Vienna, Austria
+  year: '2024'
+- type: software
+  title: methods
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  institution:
+    name: R Foundation for Statistical Computing
+    address: Vienna, Austria
+  year: '2024'
+- type: software
+  title: rlang
+  abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
+  notes: Imports
+  url: https://rlang.r-lib.org
+  repository: https://CRAN.R-project.org/package=rlang
+  authors:
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@posit.co
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  year: '2024'
+  doi: 10.32614/CRAN.package.rlang
+- type: software
+  title: sf
+  abstract: 'sf: Simple Features for R'
+  notes: Imports
+  url: https://r-spatial.github.io/sf/
+  repository: https://CRAN.R-project.org/package=sf
+  authors:
+  - family-names: Pebesma
+    given-names: Edzer
+    email: edzer.pebesma@uni-muenster.de
+    orcid: https://orcid.org/0000-0001-8049-7069
+  year: '2024'
+  doi: 10.32614/CRAN.package.sf
+- type: software
+  title: caret
+  abstract: 'caret: Classification and Regression Training'
+  notes: Suggests
+  url: https://github.com/topepo/caret/
+  repository: https://CRAN.R-project.org/package=caret
+  authors:
+  - family-names: Kuhn
+    given-names: Max
+    email: mxkuhn@gmail.com
+    orcid: https://orcid.org/0000-0003-2402-136X
+  year: '2024'
+  doi: 10.32614/CRAN.package.caret
+- type: software
+  title: randomForest
+  abstract: 'randomForest: Breiman and Cutler''s Random Forests for Classification
+    and Regression'
+  notes: Suggests
+  url: https://www.stat.berkeley.edu/~breiman/RandomForests/
+  repository: https://CRAN.R-project.org/package=randomForest
+  authors:
+  - family-names: Breiman
+    given-names: Fortran original by Leo
+  - family-names: Cutler
+    given-names: Adele
+  - family-names: Liaw
+    given-names: R port by Andy
+  - family-names: Wiener.
+    given-names: Matthew
+  year: '2024'
+  doi: 10.32614/CRAN.package.randomForest
+- type: software
+  title: C50
+  abstract: 'C50: C5.0 Decision Trees and Rule-Based Models'
+  notes: Suggests
+  url: https://topepo.github.io/C5.0/
+  repository: https://CRAN.R-project.org/package=C50
+  authors:
+  - family-names: Kuhn
+    given-names: Max
+    email: mxkuhn@gmail.com
+  - family-names: Quinlan
+    given-names: Ross
+  year: '2024'
+  doi: 10.32614/CRAN.package.C50
+- type: software
+  title: plotly
+  abstract: 'plotly: Create Interactive Web Graphics via ''plotly.js'''
+  notes: Suggests
+  url: https://plotly-r.com
+  repository: https://CRAN.R-project.org/package=plotly
+  authors:
+  - family-names: Sievert
+    given-names: Carson
+    email: cpsievert1@gmail.com
+    orcid: https://orcid.org/0000-0002-4958-2844
+  - family-names: Parmer
+    given-names: Chris
+    email: chris@plot.ly
+  - family-names: Hocking
+    given-names: Toby
+    email: tdhock5@gmail.com
+  - family-names: Chamberlain
+    given-names: Scott
+    email: myrmecocystus@gmail.com
+  - family-names: Ram
+    given-names: Karthik
+    email: karthik.ram@gmail.com
+  - family-names: Corvellec
+    given-names: Marianne
+    email: marianne.corvellec@igdore.org
+    orcid: https://orcid.org/0000-0002-1994-3581
+  - family-names: Despouy
+    given-names: Pedro
+    email: pedro@plot.ly
+  year: '2024'
+  doi: 10.32614/CRAN.package.plotly
+- type: software
+  title: 'R: A Language and Environment for Statistical Computing'
+  notes: Depends
+  url: https://www.R-project.org/
+  authors:
+  - name: R Core Team
+  institution:
+    name: R Foundation for Statistical Computing
+    address: Vienna, Austria
+  year: '2024'
+  version: '>= 4.0.0'
+
