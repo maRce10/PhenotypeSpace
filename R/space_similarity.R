@@ -218,7 +218,7 @@ space_similarity <-
       total_coors <-
         spatstat.geom::as.ppp(as.matrix(data[, dimensions]), c(range(data[, dimensions[1]]), range(data[, dimensions[2]])))
       total_space <-
-        raster::raster(spatstat.core::density.ppp(total_coors))
+        raster::raster(spatstat.explore::density.ppp(total_coors))
       
       input_data <-
         lapply(split_data_list, function(Y, dims = dimensions) {
@@ -226,7 +226,7 @@ space_similarity <-
             spatstat.geom::as.ppp(as.matrix(Y[, dimensions]), c(range(Y[, dimensions[1]]), range(Y[, dimensions[2]])))
           
           raster_dens <-
-            raster::raster(spatstat.core::density.ppp(coors))
+            raster::raster(spatstat.explore::density.ppp(coors))
           
           raster_dens <-
             raster::crop(raster::extend(raster_dens, total_space), total_space)

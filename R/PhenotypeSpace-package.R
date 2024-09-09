@@ -22,7 +22,7 @@
 #' @importFrom sf st_as_sf st_intersection st_area
 #' @importFrom vegan spantree
 #' @importFrom utils combn
-#' @importFrom spatstat.core density.ppp
+#' @importFrom spatstat.explore density.ppp
 #' @importFrom spatstat.geom as.ppp
 #' @importFrom raster extend raster values extent coordinates area resample
 #' @importFrom viridis viridis inferno
