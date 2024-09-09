@@ -17,7 +17,7 @@ rarefact_space_similarity(
 )
 }
 \arguments{
-\item{formula}{an object of class "formula" (or one that can be coerced to that class).Must follow the form \code{dim1 + dim2 ~ group} where dim1 and dim2 are the dimensions of the phenotype space and \code{group} refers to the group labels.}
+\item{formula}{an object of class "formula" (or one that can be coerced to that class).Must follow the form \code{group ~ dim1 + dim2} where dim1 and dim2 are the dimensions of the phenotype space and \code{group} refers to the group labels.}
 
 \item{data}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
 

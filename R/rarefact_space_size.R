@@ -1,9 +1,6 @@
 #' @title Estimates rarefacted size of phenotypic spaces
 #'
 #' @description \code{rarefact_space_size}
-#' @param X Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels. 
-#' @param dimensions Character vector with the names of columns containing the dimensions of the phenotypic space.
-#' @param group Character vector with the name of the column (character or factor) containing group labels.
 #' @param n Integer vector of length 1 indicating the number of samples to be use for rarefaction (i.e. how many samples per group will be gather at each iteration). Default is the minimum sample size across groups. Integer vector of length 1 indicating the number of samples to be use for rarefaction (i.e. how many samples per group will be gather at each iteration). Default is the minimum sample size across groups.
 #' @param replace Logical argument to control if sampling is done with replacement. Default is \code{FALSE}. 
 #' @inheritParams template_params
@@ -20,17 +17,15 @@
 #' # get rarefacted MCP space size 
 #' # (try with more iterations on your own data)
 #' rarefact_space_size(
-#' X = example_space,
-#' dimensions =  c("dimension_1", "dimension_2"),
-#' group = "group",
-#' type = "mcp")
+#'  formula = group ~ dimension_1 + dimension_2,
+#'  data = example_space,
+#'  method = "mcp")
 #' 
 #' # mst rarefacted
 #' rarefact_space_size(
-#' X = example_space,
-#' dimensions =  c("dimension_1", "dimension_2"),
-#' group = "group",
-#' type = "mst")
+#'  formula = group ~ dimension_1 + dimension_2,
+#'  data = example_space,
+#'  method = "mst")
 #' }
 #' @seealso \code{\link{rarefact_space_similarity}}, \code{\link{space_size_difference}}
 #' @author Marcelo Araya-Salas \email{marcelo.araya@@ucr.ac.cr})
@@ -40,9 +35,24 @@
 #' }
 # last modification on jan-2022 (MAS)
 
-rarefact_space_size <- function(X, dimensions, group, n = NULL, replace = FALSE, seed = NULL, cores = 1, pb = TRUE, iterations = 30, ...){
+rarefact_space_size <-
+  function(formula,
+           data,
+           n = NULL,
+           replace = FALSE,
+           seed = NULL,
+           cores = 1,
+           pb = TRUE,
+           iterations = 30,
+           ...
+  ){
   
-  obs.n <- min(table(X[, group]))
+    # get term names from formula 
+    form_terms <- terms(formula)
+    dimensions <- attr(form_terms, "term.labels")
+    group <- as.character(form_terms[[2]])
+    
+    obs.n <- min(table(data[, group]))
   
   if (!is.null(n)) {
     if (obs.n < n & !replace) {
@@ -59,11 +69,11 @@ rarefact_space_size <- function(X, dimensions, group, n = NULL, replace = FALSE,
       set.seed(seed + e)
     
     # randomly choose the index of the observations to use for each group levels
-    raref_indices <- unlist(lapply(sort(unique(X[, group])), function(x)
-      sample(x = rownames(X)[X[, group] == x], size = n, replace = replace)
+    raref_indices <- unlist(lapply(sort(unique(data[, group])), function(x)
+      sample(x = rownames(data)[data[, group] == x], size = n, replace = replace)
     ))
     
-    overlaps <- space_size(X = X[raref_indices, ], group = group, dimensions = dimensions, pb = FALSE, cores = 1, ...)
+    overlaps <- space_size(formula = formula, data = data[raref_indices, ], pb = FALSE, cores = 1, ...)
     
     return(overlaps)
   })

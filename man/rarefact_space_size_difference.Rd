@@ -5,9 +5,8 @@
 \title{Calculates rarefacted space size differences}
 \usage{
 rarefact_space_size_difference(
-  X,
-  dimensions,
-  group,
+  formula,
+  data,
   n = NULL,
   replace = FALSE,
   seed = NULL,
@@ -18,11 +17,9 @@ rarefact_space_size_difference(
 )
 }
 \arguments{
-\item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
+\item{formula}{an object of class "formula" (or one that can be coerced to that class).Must follow the form \code{group ~ dim1 + dim2} where dim1 and dim2 are the dimensions of the phenotype space and \code{group} refers to the group labels.}
 
-\item{dimensions}{Character vector with the names of columns containing the dimensions of the phenotypic space.}
-
-\item{group}{Character vector with the name of the column (character or factor) containing group labels.}
+\item{data}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
 
 \item{n}{Integer vector of length 1 indicating the number of samples to be use for rarefaction (i.e. how many samples per group will be gather at each iteration). Default is the minimum sample size across groups.}
 
@@ -54,11 +51,10 @@ data("example_space")
 
 # get rarefied size difference using MCP (try with more iterations on your own data)
 mcp_size_diff <- rarefact_space_size_difference(
-X = example_space,
-dimensions =  c("dimension_1", "dimension_2"),
-group = "group",
-type = "mcp", 
-iterations = 5)
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ method = "mcp", 
+ iterations = 5)
 
 # convert to non-symmetric triangular matrix
 rectangular_to_triangular(mcp_size_diff, symmetric = FALSE)

@@ -64,15 +64,13 @@ rarefact_space_similarity <- function(formula,
   } else 
     n <- obs.n
   
-  data$...rownames <-  1:nrow(data) 
-  
   # run iterations
   space_similarities_list <- pblapply_phtpspc_int(1:iterations, cl = cores, pbar = pb, function(e){
     if (!is.null(seed))
       set.seed(seed + e)
     
     raref_indices <- unlist(lapply(sort(unique(data[, group])), function(x)
-      sample(data$...rownames[data[, group] == x], n, replace = replace)
+      sample(x = rownames(data)[data[, group] == x], size = n, replace = replace)
     ))
     
     overlaps <- space_similarity(data[raref_indices, ], formula = formula, pb = FALSE, cores = 1, seed = seed, ...)

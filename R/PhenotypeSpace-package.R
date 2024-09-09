@@ -19,7 +19,7 @@
 #' @import proxy
 #' @importFrom methods is
 #' @importFrom rlang check_installed
-#' @importFrom rgeos gIntersection
+#' @importFrom sf st_as_sf st_intersection st_area
 #' @importFrom vegan spantree
 #' @importFrom utils combn
 #' @importFrom spatstat.core density.ppp

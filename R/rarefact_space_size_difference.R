@@ -2,9 +2,6 @@
 #'
 #' @description \code{rarefact_space_size_difference}
 #' @inheritParams template_params
-#' @param X Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels. 
-#' @param dimensions Character vector with the names of columns containing the dimensions of the phenotypic space.
-#' @param group Character vector with the name of the column (character or factor) containing group labels.
 #' @param n Integer vector of length 1 indicating the number of samples to be use for rarefaction (i.e. how many samples per group will be gather at each iteration). Default is the minimum sample size across groups.
 #' @param replace Logical argument to control if sampling is done with replacement. Default is \code{FALSE}.
 #' @param iterations Integer vector of length 1. Controls how the number of times the rarefaction routine is iterated. Default is 30.
@@ -19,11 +16,10 @@
 #' 
 #' # get rarefied size difference using MCP (try with more iterations on your own data)
 #' mcp_size_diff <- rarefact_space_size_difference(
-#' X = example_space,
-#' dimensions =  c("dimension_1", "dimension_2"),
-#' group = "group",
-#' type = "mcp", 
-#' iterations = 5)
+#'  formula = group ~ dimension_1 + dimension_2,
+#'  data = example_space,
+#'  method = "mcp", 
+#'  iterations = 5)
 #' 
 #' # convert to non-symmetric triangular matrix
 #' rectangular_to_triangular(mcp_size_diff, symmetric = FALSE)
@@ -36,9 +32,23 @@
 #' }
 # last modification on jan-2022 (MAS)
 
-rarefact_space_size_difference <- function(X, dimensions, group, n = NULL, replace = FALSE, seed = NULL, cores = 1, pb = TRUE, iterations = 30, ...){
-  
-  obs.n <- min(table(X[, group]))
+rarefact_space_size_difference <-
+  function(formula,
+           data,
+           n = NULL,
+           replace = FALSE,
+           seed = NULL,
+           cores = 1,
+           pb = TRUE,
+           iterations = 30,
+           ...
+  ){
+    # get term names from formula 
+    form_terms <- terms(formula)
+    dimensions <- attr(form_terms, "term.labels")
+    group <- as.character(form_terms[[2]])
+    
+  obs.n <- min(table(data[, group]))
   
   if (!is.null(n)) {
     if (obs.n < n) {
@@ -49,18 +59,16 @@ rarefact_space_size_difference <- function(X, dimensions, group, n = NULL, repla
   } else 
     n <- obs.n
   
-  X$...rownames <-  1:nrow(X) 
-  
   # run iterations
   space_size_diffs_list <- pblapply_phtpspc_int(1:iterations, cl = cores, pbar = pb, function(e){
     if (!is.null(seed))
       set.seed(seed + e)
     
-    raref_indices <- unlist(lapply(sort(unique(X[, group])), function(x)
-      sample(X$...rownames[X[, group] == x], n, replace = replace)
-    ))
+    raref_indices <- unlist(lapply(sort(unique(data[, group])), function(x)
+      sample(x = rownames(data)[data[, group] == x], size = n, replace = replace)
+      ))
     
-    size_diffs <- space_size_difference(X[raref_indices, ], group = group, dimensions = dimensions, pb = FALSE, output = "rectangular", cores = 1, ...)
+    size_diffs <- space_size_difference(formula = formula, data = data[raref_indices, ], pb = FALSE, output = "rectangular", cores = 1, ...)
     
     return(size_diffs)
   })

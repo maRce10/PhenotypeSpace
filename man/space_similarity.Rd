@@ -18,7 +18,7 @@ space_similarity(
 )
 }
 \arguments{
-\item{formula}{an object of class "formula" (or one that can be coerced to that class).Must follow the form \code{dim1 + dim2 ~ group} where dim1 and dim2 are the dimensions of the phenotype space and \code{group} refers to the group labels.}
+\item{formula}{an object of class "formula" (or one that can be coerced to that class).Must follow the form \code{group ~ dim1 + dim2} where dim1 and dim2 are the dimensions of the phenotype space and \code{group} refers to the group labels.}
 
 \item{data}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
 
@@ -34,7 +34,7 @@ space_similarity(
  \item \code{distance}: mean euclidean pairwise distance between all observations of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
  \item \code{centroid.distance}: euclidean distance between the centroid of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
  }
- In addition, machine learning classification models can also be used for quantify dissimilarity as a measured of how discriminable two groups are. These models can use more than two dimensions to represent phenotyypic spaces. The following classification models can be used: "AdaBag",           "avNNet", "bam", "C5.0", "C5.0Cost", "C5.0Rules", "C5.0Tree", "gam", "gamLoess", "glmnet",   "glmStepAIC", "kernelpls", "kknn", "lda", "lda2", "LogitBoost", "msaenet", "multinom", "nnet",     "null", "ownn", "parRF", "pcaNNet", "pls", "plsRglm", "pre", "qda", "randomGLM", "rf", "rFerns", "rocc", "rotationForest", "rotationForestCp", "RRF", "RRFglobal", "sda", "simpls", "slda", "smda", "snn", "sparseLDA", "svmLinear2", "svmLinearWeights", "treebag", "widekernelpls" and "wsrf". See  \url{https://topepo.github.io/caret/train-models-by-tag.html} for details on each of these models. Additional arguments can be pased using \code{...}. Note that some machine learning methods can significantly affect co}
+ In addition, machine learning classification models can also be used for quantify dissimilarity as a measured of how discriminable two groups are. These models can use more than two dimensions to represent phenotyypic spaces. The following classification models can be used: "AdaBag",           "avNNet", "bam", "C5.0", "C5.0Cost", "C5.0Rules", "C5.0Tree", "gam", "gamLoess", "glmnet",   "glmStepAIC", "kernelpls", "kknn", "lda", "lda2", "LogitBoost", "msaenet", "multinom", "nnet",     "null", "ownn", "parRF", "pcaNNet", "pls", "plsRglm", "pre", "qda", "randomGLM", "rf", "rFerns", "rocc", "rotationForest", "rotationForestCp", "RRF", "RRFglobal", "sda", "simpls", "slda", "smda", "snn", "sparseLDA", "svmLinear2", "svmLinearWeights", "treebag", "widekernelpls" and "wsrf". See \url{https://topepo.github.io/caret/train-models-by-tag.html} for details on each of these models. Additional arguments can be pased using \code{...}. Note that some machine learning methods can significantly affect com}
 
 \item{pb}{Logical argument to control if progress bar is shown. Default is \code{TRUE}.}
 
@@ -66,7 +66,7 @@ data("example_space")
 prop_overlaps <- space_similarity(
  formula = group ~ dimension_1 + dimension_2,
  data = example_space,
- type = "proportional.overlap")
+ method = "proportional.overlap")
 
 #' # get symmetric triangular matrix
 rectangular_to_triangular(prop_overlaps)

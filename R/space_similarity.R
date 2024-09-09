@@ -12,7 +12,7 @@
 #'  \item \code{distance}: mean euclidean pairwise distance between all observations of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
 #'  \item \code{centroid.distance}: euclidean distance between the centroid of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
 #'  }
-#'  In addition, machine learning classification models can also be used for quantify dissimilarity as a measured of how discriminable two groups are. These models can use more than two dimensions to represent phenotyypic spaces. The following classification models can be used: "AdaBag",           "avNNet", "bam", "C5.0", "C5.0Cost", "C5.0Rules", "C5.0Tree", "gam", "gamLoess", "glmnet",   "glmStepAIC", "kernelpls", "kknn", "lda", "lda2", "LogitBoost", "msaenet", "multinom", "nnet",     "null", "ownn", "parRF", "pcaNNet", "pls", "plsRglm", "pre", "qda", "randomGLM", "rf", "rFerns", "rocc", "rotationForest", "rotationForestCp", "RRF", "RRFglobal", "sda", "simpls", "slda", "smda", "snn", "sparseLDA", "svmLinear2", "svmLinearWeights", "treebag", "widekernelpls" and "wsrf". See  \url{https://topepo.github.io/caret/train-models-by-tag.html} for details on each of these models. Additional arguments can be pased using \code{...}. Note that some machine learning methods can significantly affect computational efficiency (i.e. take a long time to compute). 
+#'  In addition, machine learning classification models can also be used for quantify dissimilarity as a measured of how discriminable two groups are. These models can use more than two dimensions to represent phenotyypic spaces. The following classification models can be used: "AdaBag",           "avNNet", "bam", "C5.0", "C5.0Cost", "C5.0Rules", "C5.0Tree", "gam", "gamLoess", "glmnet",   "glmStepAIC", "kernelpls", "kknn", "lda", "lda2", "LogitBoost", "msaenet", "multinom", "nnet",     "null", "ownn", "parRF", "pcaNNet", "pls", "plsRglm", "pre", "qda", "randomGLM", "rf", "rFerns", "rocc", "rotationForest", "rotationForestCp", "RRF", "RRFglobal", "sda", "simpls", "slda", "smda", "snn", "sparseLDA", "svmLinear2", "svmLinearWeights", "treebag", "widekernelpls" and "wsrf". See \url{https://topepo.github.io/caret/train-models-by-tag.html} for details on each of these models. Additional arguments can be pased using \code{...}. Note that some machine learning methods can significantly affect computational efficiency (i.e. take a long time to compute). 
 #' @param outliers Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid. Ignored when using machine learning methods.
 #' @param pairwise.scale Logical argument to control if pairwise phenotypic spaces are scaled (i.e. z-transformed) prior to similarity estimation. If so (\code{TRUE}) similarities are decoupled from the size of the global phenotypic space. Useful to compare similarities coming from different phenotypic spaces. Default is \code{FALSE}. Not available for 'density.overlap', 'mean.density.overlap' or any machine learning model.
 #' @param distance.method Character vector of length 1 indicating the method to be used for measuring distances (hence only applicable when distances are calculated). Available distance measures are: "Euclidean" (default), "Manhattan", "supremum", "Canberra", "Wave", "divergence", "Bray", "Soergel", "Podani", "Chord", "Geodesic" and "Whittaker". If a similarity measure is used similarities are converted to distances.
@@ -30,7 +30,7 @@
 #' prop_overlaps <- space_similarity(
 #'  formula = group ~ dimension_1 + dimension_2,
 #'  data = example_space,
-#'  type = "proportional.overlap")
+#'  method = "proportional.overlap")
 #'
 #' #' # get symmetric triangular matrix
 #' rectangular_to_triangular(prop_overlaps)
@@ -101,7 +101,6 @@
 #' @references {
 #' Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
 #' }
-# last modification on jan-2022 (MAS)
 
 space_similarity <-
   function(formula,
@@ -176,10 +175,8 @@ space_similarity <-
     ))
     stop2("Unsupported 'method' declared")
     
-    
     if (!distance.method %in% c("Euclidean", "Manhattan", "supremum", "Canberra", "Wave", "divergence", "Bray", "Soergel", "Podani", "Chord", "Geodesic", "Whittaker"))
       stop2("Unsupported 'distance.method' declared")
-    
     
     # check if model package is installed and offer user to install it if not 
     if (method %in% ml_methods) {
@@ -190,7 +187,7 @@ space_similarity <-
     }
     
     # get term names from formula 
-    form_terms <- terms(formula)
+    form_terms <- terms(formula, data = data)
     dimensions <- attr(form_terms, "term.labels")
     group <- as.character(form_terms[[2]])
 
@@ -213,7 +210,7 @@ space_similarity <-
     # stop if too small sample sizes
     if (min(sapply(split_data_list, nrow)) < 2)
       stop2(
-        "There is at least one group with less than 2 observations which is the minimum needed for overlap estimation"
+        "There is at least one group with less than 2 observations which is the minimum needed for similarity estimation"
       )
     
     # get densities
@@ -257,8 +254,6 @@ space_similarity <-
       input_data <- split_data_list
     }
     
-    
-    
     # function to calculate areas
     ovlp_fun <- function(W, Z, WZ, tp, dims, dist.meth, seed) {
       # get area
@@ -295,21 +290,25 @@ space_similarity <-
         sp::coordinates(Z) <-
           stats::as.formula(paste("~", paste(dims, collapse = "+")))
         
+        # Create the MCPs (Minimum Convex Polygons) for W and Z
+        mcp_W <- sf::st_as_sf(adehabitatHR::mcp(W))
+        mcp_Z <- sf::st_as_sf(adehabitatHR::mcp(Z))
         
-        # get intersect
-        intrsct <-
-          rgeos::gIntersection(adehabitatHR::mcp(W), adehabitatHR::mcp(Z))
-        if (!is.null(intrsct))
-        {
-          intrsctspace_size <- raster::area(intrsct)
+        # Perform the intersection
+        intrsct <- sf::st_intersection(mcp_W, mcp_Z)
+
+        if (nrow(intrsct) == 0) {
+          ovlp1in2 <- ovlp2in1 <- 0
+        } else {
+          # Calculate the area of the intersection (in square meters by default)
+          intrsctspace_size <- sf::st_area(intrsct)
           
           ovlp1in2 <-
-            intrsctspace_size / raster::area(adehabitatHR::mcp(W))
+            intrsctspace_size / sf::st_area(mcp_W)
           ovlp2in1 <-
-            intrsctspace_size / raster::area(adehabitatHR::mcp(Z))
-        }      else {
-          ovlp1in2 <- ovlp2in1 <- 0
-          }
+            intrsctspace_size / sf::st_area(mcp_Z)
+          
+        } 
         
         out <- matrix(c(ovlp2in1, ovlp1in2, mean(c(ovlp2in1, ovlp1in2))), nrow = 1)
       }
@@ -324,22 +323,27 @@ space_similarity <-
         Y <- rbind(W, Z)
         
         # get intersect
-        intrsct <-
-          rgeos::gIntersection(
-            adehabitatHR::mcp(W, percent = outliers * 100),
-            adehabitatHR::mcp(Z, percent = outliers * 100)
-          )
+        mcp_W <- sf::st_as_sf(adehabitatHR::mcp(W, percent = outliers * 100))
+        mcp_Z <- sf::st_as_sf(adehabitatHR::mcp(Z, percent = outliers * 100))
+
+        # Perform the intersection
+        intrsct <- sf::st_intersection(mcp_W, mcp_Z)
         
-        if (!is.null(intrsct))
-        {
-          intrsctspace_size <- raster::area(intrsct)
-          totalspace_size <-
-            raster::area(adehabitatHR::mcp(Y, percent = outliers * 100))
+        if (nrow(intrsct) == 0) {
+          ovlp1in2 <- ovlp2in1 <- 0
+        } else {
+          # intrsctspace_size <- raster::area(intrsct)
+          intrsctspace_size <- sf::st_area(intrsct)
+          
+          # totalspace_size <-
+            # raster::area(adehabitatHR::mcp(Y, percent = outliers * 100))
+            
+            mcp_Y <- sf::st_as_sf(adehabitatHR::mcp(Y), percent = outliers * 100)  
+            totalspace_size <- sf::st_area(mcp_Y)
           ovlp1in2 <-
             ovlp2in1 <- intrsctspace_size / totalspace_size
           
-        }      else
-          ovlp1in2 <- ovlp2in1 <- 0
+        } 
         
         out <- matrix(c(ovlp2in1, ovlp1in2, mean(c(ovlp2in1, ovlp1in2))), nrow = 1)
       }

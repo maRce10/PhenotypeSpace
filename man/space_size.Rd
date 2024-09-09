@@ -5,26 +5,23 @@
 \title{Estimates the size of phenotypic spaces}
 \usage{
 space_size(
-  X,
-  dimensions = NULL,
-  group,
+  formula,
+  data,
   cores = 1,
-  type = "mcp",
+  method = "mcp",
   pb = TRUE,
   outliers = 0.95,
   ...
 )
 }
 \arguments{
-\item{X}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
+\item{formula}{an object of class "formula" (or one that can be coerced to that class).Must follow the form \code{group ~ dim1 + dim2} where dim1 and dim2 are the dimensions of the phenotype space and \code{group} refers to the group labels.}
 
-\item{dimensions}{Character vector with the names of columns containing the dimensions of the phenotypic space.}
-
-\item{group}{Character vector with the name of the column (character or factor) containing group labels.}
+\item{data}{Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels.}
 
 \item{cores}{Numeric vector of length 1. Controls whether parallel computing is applied by specifying the number of cores to be used. Default is 1 (i.e. no parallel computing).}
 
-\item{type}{Character vector of length 1. Controls the type of metric to be used for quantifying space size. Three metrics are available:
+\item{method}{Character vector of length 1. Controls the method to be used for quantifying space size. Three metrics are available:
 \itemize{
  \item \code{mcp}: minimum convex polygon area using the function  \code{\link[adehabitatHR]{mcp}}. The minimum sample size (per group) must be 2 observations.
  \item \code{density}: kernel density area using the function \code{\link[adehabitatHR]{kernelUD}}. The minimum sample size (per group) must be 6 observations.
@@ -35,7 +32,7 @@ space_size(
 
 \item{outliers}{Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid.}
 
-\item{...}{Additional arguments to be passed to \code{\link[adehabitatHR]{kernelUD}} for kernel density estimation (when  \code{type = 'density'}.}
+\item{...}{Additional arguments to be passed to \code{\link[adehabitatHR]{kernelUD}} for kernel density estimation (when  \code{method = 'density'}.}
 }
 \value{
 A data frame containing the phenotypic space size for each group.
@@ -60,17 +57,15 @@ text(xs, ys, labels = names(xs), cex = 2.5)
 
 # MCP spaces
 space_size(
-X = example_space,
-dimensions =  c("dimension_1", "dimension_2"),
-group = "group",
-type = "mcp")
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ method = "mcp")
 
 # MST 
 space_size(
-  X = example_space,
-  dimensions =  c("dimension_1", "dimension_2"),
-  group = "group",
-  type = "mst")
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ method = "mst")
 }
 }
 \references{

@@ -31,7 +31,7 @@ data("example_space")
 prop_overlaps <- space_similarity(
  formula = group ~ dimension_1 + dimension_2,
  data = example_space,
- type = "proportional.overlap")
+ method = "proportional.overlap")
 
 # get symmetric triangular matrix
 rectangular_to_triangular(prop_overlaps)
@@ -40,7 +40,7 @@ rectangular_to_triangular(prop_overlaps)
 mcp_overlaps <- space_similarity(
  formula = group ~ dimension_1 + dimension_2,
  data = example_space,
- type = "mcp.overlap")
+ method = "mcp.overlap")
 
 # get a non-symmetric triangular matrix
 rectangular_to_triangular(mcp_overlaps, symmetric = FALSE)

@@ -2,10 +2,7 @@
 #'
 #' @description \code{space_size_difference}
 #' @inheritParams template_params
-#' @param X Data frame containing columns for the dimensions of the phenotypic space (numeric) and a categorical or factor column with group labels. 
-#' @param dimensions Character vector with the names of columns containing the dimensions of the phenotypic space.
-#' @param group Character vector with the name of the column (character or factor) containing group labels.
-#' @param type Character vector of length 1. Controls the type of metric to be used for quantifying space size. Three metrics are available:
+#' @param method Character vector of length 1. Controls the method to be used for quantifying space size. Three metrics are available:
 #' \itemize{
 #'  \item \code{mcp}: minimum convex polygon area using the function  \code{\link[adehabitatHR]{mcp}}. The minimum sample size (per group) must be 2 observations.
 #'  \item \code{density}: kernel density area using the function \code{\link[adehabitatHR]{kernelUD}}. The minimum sample size (per group) must be 6 observations.
@@ -23,17 +20,15 @@
 #' 
 #' # MCP size (try with more iterations on your own data)
 #' mcp_size <- space_size_difference(
-#' X = example_space,
-#' dimensions =  c("dimension_1", "dimension_2"),
-#' group = "group",
-#' type = "mcp")
+#'  formula = group ~ dimension_1 + dimension_2,
+#'  data = example_space,
+#'  method = "mcp")
 #' 
 #' # MST size
 #' mcp_size <- space_size_difference(
-#' X = example_space,
-#' dimensions =  c("dimension_1", "dimension_2"),
-#' group = "group",
-#' type = "mst")
+#'  formula = group ~ dimension_1 + dimension_2,
+#'  data = example_space,
+#'  method = "mst")
 #' }
 #' @seealso \code{\link{space_size}}, \code{\link{space_similarity}}, \code{\link{rarefact_space_size_difference}}
 #' @author Marcelo Araya-Salas \email{marcelo.araya@@ucr.ac.cr})
@@ -43,23 +38,36 @@
 #' }
 # last modification on jan-2022 (MAS)
 
-space_size_difference <- function(X, dimensions, group, cores = 1, type = "mcp", pb = TRUE, outliers = 0.95, ...){
-  
-  group_combs <- t(utils::combn(sort(unique(X[, group])), 2))
-  
-  propspace_size_diff_list <- lapply(1:nrow(group_combs), function(x){
+space_size_difference <-
+  function(formula,
+           data,
+           cores = 1,
+           method = "mcp",
+           pb = TRUE,
+           outliers = 0.95,
+           ...
+  ){
     
-    W <- X[X[, group] == group_combs[x, 1], ]
-    Z <- X[X[, group] == group_combs[x, 2], ]     
+    # get term names from formula 
+    form_terms <- terms(formula)
+    dimensions <- attr(form_terms, "term.labels")
+    group <- as.character(form_terms[[2]])
     
-    # combined both
-    both <- rbind(W, Z)
-    both[, group] <- as.character(both[, group])
-    both[, group] <- "both"
+    group_combs <- t(utils::combn(sort(unique(data[, group])), 2))
     
-    Y <- rbind(W, Z, both)
+    propspace_size_diff_list <- lapply(1:nrow(group_combs), function(x){
+      
+      W <- data[data[, group] == group_combs[x, 1], ]
+      Z <- data[data[, group] == group_combs[x, 2], ]     
+      
+      # combined both
+      both <- rbind(W, Z)
+      both[, group] <- as.character(both[, group])
+      both[, group] <- "both"
+      
+      Y <- rbind(W, Z, both)
     
-    sizes <- space_size(X = Y, dimensions = dimensions, group = group,  cores = 1, type = type, pb = FALSE, outliers = outliers)
+    sizes <- space_size(formula = formula, data = Y, cores = 1, method = method, pb = FALSE, outliers = outliers)
     
     size.diff <- sizes$size[sizes$group == group_combs[x, 1]] - sizes$size[sizes$group == group_combs[x, 2]]
     
