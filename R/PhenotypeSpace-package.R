@@ -15,8 +15,7 @@
 #' @import pbapply
 #' @import parallel
 #' @import utils
-#' @import stats
-#' @import proxy
+#' @importFrom proxy pr_DB dist
 #' @importFrom methods is
 #' @importFrom rlang check_installed
 #' @importFrom sf st_as_sf st_intersection st_area
@@ -26,7 +25,7 @@
 #' @importFrom spatstat.geom as.ppp
 #' @importFrom raster extend raster values extent coordinates area resample
 #' @importFrom viridis viridis inferno
-#' @importFrom stats as.formula dist sd
+#' @importFrom stats as.formula sd terms
 #' @importFrom grDevices adjustcolor colorRampPalette
 #' @importFrom graphics image legend par points
 #' @author Marcelo Araya-Salas
