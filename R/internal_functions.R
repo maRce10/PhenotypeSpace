@@ -7,8 +7,7 @@ stop2 <- function (...)
 
 # internal function, not to be called by users. It is a modified version of pbapply::pblapply
 # that allows to define internally if progress bar would be used (pbapply::pblapply uses pboptions to do this) 
-#last modification on feb-24-2022 (MAS)
-#'    
+
 pblapply_phtpspc_int <- function(X, FUN, cl = 1, pbar = TRUE, ...) {
   
   # conver parallel 1 to null

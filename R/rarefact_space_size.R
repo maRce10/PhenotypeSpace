@@ -33,7 +33,6 @@
 #' @references {
 #' Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
 #' }
-# last modification on jan-2022 (MAS)
 
 rarefact_space_size <-
   function(formula,
