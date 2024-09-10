@@ -8,7 +8,6 @@ License: GPL (>= 2)
 Encoding: UTF-8
 URL: https://marce10.github.io/PhenotypeSpace/
 BugReports: https://github.com/maRce10/PhenotypeSpace/issues/
-VignetteBuilder: knitr, rmarkdown
 RoxygenNote: 7.3.2
 Repository: CRAN
 Language: en-US
