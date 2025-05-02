@@ -33,9 +33,8 @@
 #' @seealso \code{\link{distance_to_rectangular}}, \code{\link{binary_triangular_matrix}}
 #' @author Marcelo Araya-Salas \email{marcelo.araya@@ucr.ac.cr})
 #'
-#' @references {
+#' @references
 #' Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
-#' }
 
 rectangular_to_triangular <- function(X, distance = TRUE, symmetric = TRUE){
   

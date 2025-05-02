@@ -86,9 +86,7 @@ labels = c("G3", "trait space"), legend.pos = "bottomleft", title = "G3")
 }
 }
 \references{
-{
 Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
-}
 }
 \seealso{
 \code{\link{distance_to_rectangular}}, \code{\link{rectangular_to_triangular}}

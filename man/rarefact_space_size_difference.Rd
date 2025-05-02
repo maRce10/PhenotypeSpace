@@ -61,9 +61,7 @@ rectangular_to_triangular(mcp_size_diff, symmetric = FALSE)
 }
 }
 \references{
-{
 Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
-}
 }
 \seealso{
 \code{\link{rarefact_space_similarity}}, \code{\link{space_size_difference}}
