@@ -62,8 +62,8 @@ rarefact_space_similarity <- function(formula,
     } 
   } else {
     n <- obs.n
-  message("Rarefaction sample size = ", n)
-    }
+    message("Rarefaction sample size = ", n)
+  }
   # run iterations
   space_similarities_list <- pblapply_phtpspc_int(1:iterations, cl = cores, pbar = pb, function(e){
     if (!is.null(seed))
@@ -107,9 +107,6 @@ rarefact_space_similarity <- function(formula,
   }
   
   # rename columns
-  # names(results) <- if (grepl("distance", method)) gsub("similarity", "distance", names(results)) else
-  #   gsub("similarity", "overlap", names(results))
-  
   if (grepl("distance", method) & method != "probability") {
     names(results) <-gsub("similarity", "distance", names(results))
   } 

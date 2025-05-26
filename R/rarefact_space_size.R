@@ -58,9 +58,10 @@ rarefact_space_size <-
       if (replace) message("'n' higher than the minimum sample size for at least 1 group, running rarefaction with replacement (replace = TRUE)")
       replace <- TRUE
     } 
-  } else 
+  } else {
     n <- obs.n
-  
+    message("Rarefaction sample size = ", n)
+  }
   # run iterations
   space_sizes_list <- pblapply_phtpspc_int(1:iterations, cl = cores, pbar = pb, function(e){
     if (!is.null(seed))
