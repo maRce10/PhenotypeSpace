@@ -44,15 +44,15 @@ rarefact_space_size <-
            iterations = 30,
            ...
   ){
-  
+    
     # get term names from formula 
     form_terms <- terms(formula)
     dimensions <- attr(form_terms, "term.labels")
     group <- as.character(form_terms[[2]])
     
     obs.n <- min(table(data[, group]))
-  
-  if (!is.null(n)) {
+    
+    if (!is.null(n)) {
     if (obs.n < n & !replace) {
       
       if (replace) message("'n' higher than the minimum sample size for at least 1 group, running rarefaction with replacement (replace = TRUE)")
