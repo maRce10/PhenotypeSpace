@@ -20,6 +20,7 @@ reference:
     Data exploration and manipulation
   contents:
   - binary_triangular_matrix
+  - rectangular_to_triangular
   - distance_to_rectangular
   - plot_space
   
