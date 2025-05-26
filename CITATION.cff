@@ -8,7 +8,7 @@ message: 'To cite package "PhenotypeSpace" in publications use:'
 type: software
 license: GPL-2.0-or-later
 title: 'PhenotypeSpace: Quantifying phenotypic spaces'
-version: 0.1.0
+version: 0.1.1
 abstract: Facilitates quantifying phenotypic trait spaces and comparing spaces across
   groups.
 authors:
@@ -51,7 +51,7 @@ references:
   - family-names: Zawadzki
     given-names: Zygmunt
     email: zygmunt@zstat.pl
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.pbapply
 - type: software
   title: viridis
@@ -63,7 +63,7 @@ references:
   - family-names: Garnier
     given-names: Simon
     email: garnier@njit.edu
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.viridis
 - type: software
   title: adehabitatHR
@@ -74,7 +74,7 @@ references:
   - family-names: Calenge
     given-names: Clement
     email: clement.calenge@ofb.gouv.fr
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.adehabitatHR
 - type: software
   title: sp
@@ -89,7 +89,7 @@ references:
   - family-names: Bivand
     given-names: Roger
     email: Roger.Bivand@nhh.no
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.sp
 - type: software
   title: stats
@@ -100,7 +100,7 @@ references:
   institution:
     name: R Foundation for Statistical Computing
     address: Vienna, Austria
-  year: '2024'
+  year: '2025'
 - type: software
   title: raster
   abstract: 'raster: Geographic Data Analysis and Modeling'
@@ -112,7 +112,7 @@ references:
     given-names: Robert J.
     email: r.hijmans@gmail.com
     orcid: https://orcid.org/0000-0001-5872-2872
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.raster
 - type: software
   title: MASS
@@ -123,8 +123,10 @@ references:
   authors:
   - family-names: Ripley
     given-names: Brian
-    email: ripley@stats.ox.ac.uk
-  year: '2024'
+    email: Brian.Ripley@R-project.org
+  - family-names: Venables
+    given-names: Bill
+  year: '2025'
   doi: 10.32614/CRAN.package.MASS
 - type: software
   title: vegan
@@ -201,7 +203,9 @@ references:
     given-names: Cajo J.F.
   - family-names: Weedon
     given-names: James
-  year: '2024'
+  - family-names: Borman
+    given-names: Tuomas
+  year: '2025'
   doi: 10.32614/CRAN.package.vegan
 - type: software
   title: spatstat.explore
@@ -222,7 +226,7 @@ references:
     given-names: Ege
     email: rubak@math.aau.dk
     orcid: https://orcid.org/0000-0002-6675-533X
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.spatstat.explore
 - type: software
   title: spatstat.geom
@@ -243,7 +247,7 @@ references:
     given-names: Ege
     email: rubak@math.aau.dk
     orcid: https://orcid.org/0000-0002-6675-533X
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.spatstat.geom
 - type: software
   title: proxy
@@ -256,7 +260,7 @@ references:
     email: David.Meyer@R-project.org
   - family-names: Buchta
     given-names: Christian
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.proxy
 - type: software
   title: grDevices
@@ -267,7 +271,7 @@ references:
   institution:
     name: R Foundation for Statistical Computing
     address: Vienna, Austria
-  year: '2024'
+  year: '2025'
 - type: software
   title: methods
   abstract: 'R: A Language and Environment for Statistical Computing'
@@ -277,7 +281,7 @@ references:
   institution:
     name: R Foundation for Statistical Computing
     address: Vienna, Austria
-  year: '2024'
+  year: '2025'
 - type: software
   title: rlang
   abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
@@ -291,7 +295,7 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.rlang
 - type: software
   title: sf
@@ -304,8 +308,25 @@ references:
     given-names: Edzer
     email: edzer.pebesma@uni-muenster.de
     orcid: https://orcid.org/0000-0001-8049-7069
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.sf
+- type: software
+  title: nicheROVER
+  abstract: 'nicheROVER: Niche Region and Niche Overlap Metrics for Multidimensional
+    Ecological Niches'
+  notes: Imports
+  url: https://github.com/mlysy/nicheROVER
+  repository: https://CRAN.R-project.org/package=nicheROVER
+  authors:
+  - family-names: Lysy
+    given-names: Martin
+    email: mlysy@uwaterloo.ca
+  - family-names: Stasko
+    given-names: Ashley D.
+  - family-names: Swanson
+    given-names: Heidi K.
+  year: '2025'
+  doi: 10.32614/CRAN.package.nicheROVER
 - type: software
   title: caret
   abstract: 'caret: Classification and Regression Training'
@@ -317,25 +338,26 @@ references:
     given-names: Max
     email: mxkuhn@gmail.com
     orcid: https://orcid.org/0000-0003-2402-136X
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.caret
 - type: software
   title: randomForest
-  abstract: 'randomForest: Breiman and Cutler''s Random Forests for Classification
-    and Regression'
+  abstract: 'randomForest: Breiman and Cutlers Random Forests for Classification and
+    Regression'
   notes: Suggests
   url: https://www.stat.berkeley.edu/~breiman/RandomForests/
   repository: https://CRAN.R-project.org/package=randomForest
   authors:
   - family-names: Breiman
-    given-names: Fortran original by Leo
+    given-names: Leo
   - family-names: Cutler
     given-names: Adele
   - family-names: Liaw
-    given-names: R port by Andy
-  - family-names: Wiener.
+    given-names: Andy
+    email: andy_liaw@merck.com
+  - family-names: Wiener
     given-names: Matthew
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.randomForest
 - type: software
   title: C50
@@ -349,7 +371,7 @@ references:
     email: mxkuhn@gmail.com
   - family-names: Quinlan
     given-names: Ross
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.C50
 - type: software
   title: plotly
@@ -381,7 +403,7 @@ references:
   - family-names: Despouy
     given-names: Pedro
     email: pedro@plot.ly
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.plotly
 - type: software
   title: 'R: A Language and Environment for Statistical Computing'
@@ -392,6 +414,6 @@ references:
   institution:
     name: R Foundation for Statistical Computing
     address: Vienna, Austria
-  year: '2024'
+  year: '2025'
   version: '>= 4.0.0'
 
