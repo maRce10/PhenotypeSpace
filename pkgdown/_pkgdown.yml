@@ -1,3 +1,30 @@
 url: https://marce10.github.io/PhenotypeSpace
 template:
   bootstrap: 5
+  
+  reference:
+- title: Space features
+  desc: >
+    Measure space features
+  contents:
+  - space_similarity
+  - rarefact_space_similiarity
+  - space_size
+  - rarefact_space_size
+  - space_size_difference
+  - rarefact_space_size_difference
+  
+- title: Curating detection datasets
+  desc: >
+    Data exploration and manipulation
+  contents:
+  - binary_triangular_matrix
+  - distance_to_rectangular
+  - plot_space
+  
+
+- title: Built in datasets
+  desc: >
+    Dataset included in PhenotypeSpace
+  contents:
+  - example_space
