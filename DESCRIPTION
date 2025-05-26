@@ -1,7 +1,7 @@
 Package: PhenotypeSpace
 Type: Package
 Title: Quantifying phenotypic spaces
-Version: 0.1.0
+Version: 0.1.1
 Maintainer: Marcelo Araya-Salas <marcelo.araya@ucr.ac.cr>
 Description: Facilitates quantifying phenotypic trait spaces and comparing spaces across groups. 
 License: GPL (>= 2)
@@ -12,6 +12,6 @@ RoxygenNote: 7.3.2
 Repository: CRAN
 Language: en-US
 Authors@R: c(person("Marcelo", "Araya-Salas", role = c("aut", "cre"), email = "marcelo.araya@ucr.ac.cr", comment = c(ORCID = "0000-0003-3594-619X")), person("Karan", "Odom", role = c("aut"), email = "kjodom@gmail.com"))
-Imports: pbapply, viridis, adehabitatHR, sp, stats, raster, MASS, vegan, spatstat.explore, spatstat.geom, proxy, grDevices, methods, rlang, sf
+Imports: pbapply, viridis, adehabitatHR, sp, stats, raster, MASS, vegan, spatstat.explore, spatstat.geom, proxy, grDevices, methods, rlang, sf, nicheROVER
 Suggests: caret, randomForest, C50, plotly
 Depends: R (>= 4.0.0)

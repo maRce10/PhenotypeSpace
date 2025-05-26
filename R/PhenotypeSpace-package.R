@@ -15,6 +15,7 @@
 #' @import pbapply
 #' @import parallel
 #' @import utils
+#' @importFrom nicheROVER niw.post overlap
 #' @importFrom proxy pr_DB dist
 #' @importFrom methods is
 #' @importFrom rlang check_installed

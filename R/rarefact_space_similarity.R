@@ -56,12 +56,14 @@ rarefact_space_similarity <- function(formula,
   if (!is.null(n)) {
     if (obs.n < n) {
       
-      if (replace) message("'n' higher than the minimum sample size for at least 1 group, running rarefaction with replacement (replace = TRUE)")
+      if (!replace) 
+        message("'n' higher than the minimum sample size for at least 1 group, running rarefaction with replacement (replace = TRUE)")
       replace <- TRUE
     } 
-  } else 
+  } else {
     n <- obs.n
-  
+  message("Rarefaction sample size = ", n)
+    }
   # run iterations
   space_similarities_list <- pblapply_phtpspc_int(1:iterations, cl = cores, pbar = pb, function(e){
     if (!is.null(seed))
@@ -83,12 +85,12 @@ rarefact_space_similarity <- function(formula,
   # get type from arguments set in the call
   call.argms <- as.list(base::match.call())[-1]
 
-  if (any(names(call.argms) == "type"))
-    type <- call.argms$type else
-      type <- "mcp.overlap" # default value in space_similarity()
+  if (any(names(call.argms) == "method"))
+    method <- call.argms$method else
+      method <- "mcp.overlap" # default value in space_similarity()
   
   # create output data frame
-  if (!any(names(space_similarities_list[[1]]) == "overlap.1in2")){
+  if (!any(names(space_similarities_list[[1]]) %in% c("overlap.1in2", "probability.1in2"))){
   results$mean.similarity <- rowMeans(space_similarities_mat)
   results$min.similarity <- apply(X = space_similarities_mat, MARGIN = 1, FUN = min)  
   results$max.similarity <- apply(X = space_similarities_mat, MARGIN = 1, FUN = max)  
@@ -105,8 +107,21 @@ rarefact_space_similarity <- function(formula,
   }
   
   # rename columns
-  names(results) <- if (grepl("distance", type)) gsub("similarity", "distance", names(results)) else
-    gsub("similarity", "overlap", names(results))
+  # names(results) <- if (grepl("distance", method)) gsub("similarity", "distance", names(results)) else
+  #   gsub("similarity", "overlap", names(results))
   
-  return(results)
+  if (grepl("distance", method) & method != "probability") {
+    names(results) <-gsub("similarity", "distance", names(results))
+  } 
+  
+  if (!grepl("overlap", method) & method != "probability") {
+    names(results) <- gsub("similarity", "overlap", names(results))
+  }
+  
+  if (method == "probability") {
+    names(results) <-gsub("similarity", "probability", names(results))
+  } 
+  
+  
+    return(results)
 }

@@ -6,11 +6,12 @@
 #' \itemize{
 #'  \item \code{density.overlap}: proportion of the phenotypic sub-spaces area that overlap, taking into account the irregular densities of the sub-spaces. Two groups that share their higher density areas will be more similar than similar sub-spaces that only share their lower density areas. Two values are supplied as the proportion of the space of A that overlaps B is not necessarily the same as the proportion of B that overlaps A. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 6 observations.
 #'  \item \code{mean.density.overlap}: similar to 'density.overlap' but the two values are merged into a single pairwise mean overlap. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 6 observations.
-#'  \item \code{mcp.overlap}: proportion of the phenotypic sub-spaces area that overlap, in which areas are calculated as the minimum convex polygon of all observations for each su-space. Two values are supplied as the proportion of the space of A that overlaps B is not necessarily the same as the proportion of B that overlaps A. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.
+#'  \item \code{mcp.overlap}: proportion of the phenotypic sub-spaces area that overlap, in which areas are calculated as the minimum convex polygon of all observations for each sub-space. Two values are supplied as the proportion of the space of A that overlaps B is not necessarily the same as the proportion of B that overlaps A. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.
 #'  \item \code{mean.mcp.overlap}: similar to 'mcp.overlap' but the two values are merged into a single pairwise mean overlap. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.
 #'  \item \code{proportional.overlap}: proportion of the joint area of both sub-spaces that overlaps (overlapped area / total area of both groups). Sub-space areas are calculated as the minimum convex polygon. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.
 #'  \item \code{distance}: mean euclidean pairwise distance between all observations of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
 #'  \item \code{centroid.distance}: euclidean distance between the centroid of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
+#'  \item \code{probability}: Bayesian probability of observations of one group being classified as belonging to the other group. Similarity metric (higher values means less similar). The minimum sample size (per group) must be higher the number of dimensions. Probabilities are calculated using the function \code{\link[nicheROVER]{overlap}} from the nicheROVER package. The following values are used internally by \code{\link[nicheROVER]{overlap}}: nreps = 1000, nprob = 1000, kappa = 0, Psi = 0, nu = number of predictors + 1. Random draws are taken from the posterior distribution with Normal-Inverse-Wishart (NIW) prior using the function \code{\link[nicheROVER]{niw.post}}. Take a look at the nicheROVER package for further details on this method.  
 #'  }
 #'  In addition, machine learning classification models can also be used for quantify dissimilarity as a measured of how discriminable two groups are. These models can use more than two dimensions to represent phenotyypic spaces. The following classification models can be used: "AdaBag",           "avNNet", "bam", "C5.0", "C5.0Cost", "C5.0Rules", "C5.0Tree", "gam", "gamLoess", "glmnet",   "glmStepAIC", "kernelpls", "kknn", "lda", "lda2", "LogitBoost", "msaenet", "multinom", "nnet",     "null", "ownn", "parRF", "pcaNNet", "pls", "plsRglm", "pre", "qda", "randomGLM", "rf", "rFerns", "rocc", "rotationForest", "rotationForestCp", "RRF", "RRFglobal", "sda", "simpls", "slda", "smda", "snn", "sparseLDA", "svmLinear2", "svmLinearWeights", "treebag", "widekernelpls" and "wsrf". See \url{https://topepo.github.io/caret/train-models-by-tag.html} for details on each of these models. Additional arguments can be pased using \code{...}. Note that some machine learning methods can significantly affect computational efficiency (i.e. take a long time to compute). 
 #' @param outliers Numeric vector of length 1. A value between 0 and 1 controlling the proportion of outlier observations to be excluded. Outliers are determined as those farthest away from the sub-space centroid. Ignored when using machine learning methods.
@@ -170,6 +171,7 @@ space_similarity <-
       "proportional.overlap",
       "distance",
       "centroid.distance",
+      "probability",
       ml_methods
     ))
     stop2("Unsupported 'method' declared")
@@ -207,12 +209,17 @@ space_similarity <-
     split_data_list <- split(x = data, f = data[, group])
     
     # stop if too small sample sizes
-    if (min(sapply(split_data_list, nrow)) < 2)
+    if (min(sapply(split_data_list, nrow)) < 2 & method != "probability")
       stop2(
         "There is at least one group with less than 2 observations which is the minimum needed for similarity estimation"
       )
     
-    # get densities
+    if (min(sapply(split_data_list, nrow)) <= length(dimensions) & method == "probability")
+      stop2(
+        "There is at least one group with less observations than the dimensions which is the minimum needed for probability estimation"
+      )
+    
+        # get densities
     if (method %in% c("density.overlap", "mean.density.overlap")) {
       total_coors <-
         spatstat.geom::as.ppp(as.matrix(data[, dimensions]), c(range(data[, dimensions[1]]), range(data[, dimensions[2]])))
@@ -401,6 +408,28 @@ space_similarity <-
         out <- matrix(c(conf_matrix[rownames(conf_matrix) == W[1, group], 3], conf_matrix[rownames(conf_matrix) == Z[1, group], 3], 1 - train_caret$results$Accuracy[nrow(train_caret$results)]), nrow = 1)
         }
       }
+      
+      if (tp == "probability") {
+        
+        wz.par <- tapply(1:nrow(WZ), WZ$group,
+                         function(ii) nicheROVER::niw.post(nsamples = 1000, X = WZ[ii, dims]))
+        
+        # overlap calculation
+        over <- nicheROVER::overlap(wz.par, nreps = 1000, nprob = 1000,
+                        alpha = c(outliers))
+        
+        # summarize reps
+        mat <- do.call(rbind, lapply(1:dim(over)[3],function(i) c(over[, , i])))
+        
+        # extract similarity
+        mean_mat <- apply(mat,2, mean)
+        ovlp1in2 <- mean_mat[3]
+        ovlp2in1 <- mean_mat[2]
+        
+        # put it in matrix format
+        out <- matrix(c(ovlp2in1, ovlp1in2, mean(c(ovlp2in1, ovlp1in2))), nrow = 1)
+        
+      }
       return(out)
     }
     
@@ -410,7 +439,7 @@ space_similarity <-
     # calculate all similarities
     similarities_l <-
       pblapply_phtpspc_int(1:nrow(group_combs), pbar = pb,  cl = cores, function(i,
-    data = input_data,
+    dat = input_data,
     gc = group_combs,
     dims = dimensions,
     typ = method,
@@ -419,8 +448,8 @@ space_similarity <-
     sed = seed
     ) {
         if (typ %in% c("density.overlap", "mean.density.overlap")) {
-          W <- data[[which(names(data) == gc[i, 1])]]
-          Z <- data[[which(names(data) == gc[i, 2])]]
+          W <- dat[[which(names(dat) == gc[i, 1])]]
+          Z <- dat[[which(names(dat) == gc[i, 2])]]
         }
         
         if (typ %in% c(
@@ -429,6 +458,7 @@ space_similarity <-
           "mean.mcp.overlap",
           "proportional.overlap",
           "centroid.distance",
+          "probability",
           ml_methods)) {
           W <- split_data_list[[which(names(split_data_list) == gc[i, 1])]]
           Z <-
@@ -448,7 +478,7 @@ space_similarity <-
             Z <- U[(nrow_W + 1):nrow(U), ]
           }
         
-          if (typ %in% ml_methods) {
+          if (typ %in% c(ml_methods, "probability")) {
             WZ <- rbind(W, Z)
             WZ <- droplevels(WZ)
           } else {
@@ -490,12 +520,17 @@ space_similarity <-
     space_similarities <- do.call(rbind, similarities_l)
     
     # rename columns
-    names(space_similarities) <-
-      if (grepl("distance", method)) {
-        gsub("similarity", "distance", names(space_similarities))
-      } else {
-        gsub("similarity", "overlap", names(space_similarities))
+      if (grepl("distance", method) & method != "probability") {
+        names(space_similarities) <-gsub("similarity", "distance", names(space_similarities))
+      } 
+    
+    if (!grepl("distance", method) & method != "probability") {
+      names(space_similarities) <- gsub("similarity", "overlap", names(space_similarities))
       }
+    
+    if (method == "probability") {
+      names(space_similarities) <-gsub("similarity", "probability", names(space_similarities))
+    } 
     
     return(space_similarities)
   }
