@@ -2,7 +2,8 @@ url: https://marce10.github.io/PhenotypeSpace
 template:
   bootstrap: 5
   
-  reference:
+
+reference:
 - title: Space features
   desc: >
     Measure space features
@@ -22,7 +23,6 @@ template:
   - distance_to_rectangular
   - plot_space
   
-
 - title: Built in datasets
   desc: >
     Dataset included in PhenotypeSpace
