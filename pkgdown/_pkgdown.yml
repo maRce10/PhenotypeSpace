@@ -9,7 +9,7 @@ reference:
     Measure space features
   contents:
   - space_similarity
-  - rarefact_space_similiarity
+  - rarefact_space_similarity
   - space_size
   - rarefact_space_size
   - space_size_difference
