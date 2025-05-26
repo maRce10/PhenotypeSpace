@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PhenotypeSpace</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,11 +72,12 @@
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>Character vector of length 1. Controls the method of (di)similarity metric to be compare the phenotypic sub-spaces of two groups at the time. Seven built-in metrics are available which quantify as pairwise sub-space overlap ('similarity') or pairwise distance between bi-dimensional sub-spaces ('dissimilarity'):</p><ul><li><p><code>density.overlap</code>: proportion of the phenotypic sub-spaces area that overlap, taking into account the irregular densities of the sub-spaces. Two groups that share their higher density areas will be more similar than similar sub-spaces that only share their lower density areas. Two values are supplied as the proportion of the space of A that overlaps B is not necessarily the same as the proportion of B that overlaps A. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 6 observations.</p></li>
 <li><p><code>mean.density.overlap</code>: similar to 'density.overlap' but the two values are merged into a single pairwise mean overlap. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 6 observations.</p></li>
-<li><p><code>mcp.overlap</code>: proportion of the phenotypic sub-spaces area that overlap, in which areas are calculated as the minimum convex polygon of all observations for each su-space. Two values are supplied as the proportion of the space of A that overlaps B is not necessarily the same as the proportion of B that overlaps A. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.</p></li>
+<li><p><code>mcp.overlap</code>: proportion of the phenotypic sub-spaces area that overlap, in which areas are calculated as the minimum convex polygon of all observations for each sub-space. Two values are supplied as the proportion of the space of A that overlaps B is not necessarily the same as the proportion of B that overlaps A. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.</p></li>
 <li><p><code>mean.mcp.overlap</code>: similar to 'mcp.overlap' but the two values are merged into a single pairwise mean overlap. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.</p></li>
 <li><p><code>proportional.overlap</code>: proportion of the joint area of both sub-spaces that overlaps (overlapped area / total area of both groups). Sub-space areas are calculated as the minimum convex polygon. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.</p></li>
 <li><p><code>distance</code>: mean euclidean pairwise distance between all observations of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.</p></li>
 <li><p><code>centroid.distance</code>: euclidean distance between the centroid of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.</p></li>
+<li><p><code>probability</code>: Bayesian probability of observations of one group being classified as belonging to the other group. Similarity metric (higher values means less similar). The minimum sample size (per group) must be higher the number of dimensions. Probabilities are calculated using the function <code><a href="https://rdrr.io/pkg/nicheROVER/man/overlap.html" class="external-link">overlap</a></code> from the nicheROVER package. The following values are used internally by <code><a href="https://rdrr.io/pkg/nicheROVER/man/overlap.html" class="external-link">overlap</a></code>: nreps = 1000, nprob = 1000, kappa = 0, Psi = 0, nu = number of predictors + 1. Random draws are taken from the posterior distribution with Normal-Inverse-Wishart (NIW) prior using the function <code><a href="https://rdrr.io/pkg/nicheROVER/man/niw.post.html" class="external-link">niw.post</a></code>. Take a look at the nicheROVER package for further details on this method.</p></li>
 </ul><p>In addition, machine learning classification models can also be used for quantify dissimilarity as a measured of how discriminable two groups are. These models can use more than two dimensions to represent phenotyypic spaces. The following classification models can be used: "AdaBag",           "avNNet", "bam", "C5.0", "C5.0Cost", "C5.0Rules", "C5.0Tree", "gam", "gamLoess", "glmnet",   "glmStepAIC", "kernelpls", "kknn", "lda", "lda2", "LogitBoost", "msaenet", "multinom", "nnet",     "null", "ownn", "parRF", "pcaNNet", "pls", "plsRglm", "pre", "qda", "randomGLM", "rf", "rFerns", "rocc", "rotationForest", "rotationForestCp", "RRF", "RRFglobal", "sda", "simpls", "slda", "smda", "snn", "sparseLDA", "svmLinear2", "svmLinearWeights", "treebag", "widekernelpls" and "wsrf". See <a href="https://topepo.github.io/caret/train-models-by-tag.html" class="external-link">https://topepo.github.io/caret/train-models-by-tag.html</a> for details on each of these models. Additional arguments can be pased using <code>...</code>. Note that some machine learning methods can significantly affect com</p></dd>
 
 
@@ -216,7 +217,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
