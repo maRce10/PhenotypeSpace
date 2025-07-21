@@ -46,12 +46,15 @@
 <span>  basecex <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  title <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#3E4A89FF"</span>, <span class="st">"#35B779FF"</span><span class="op">)</span>,</span>
+<span>  point.colors <span class="op">=</span> <span class="va">colors</span>,</span>
 <span>  point.alpha <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span>  point.cex <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  background.indices <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  pch <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sub-space"</span>, <span class="st">"total space"</span><span class="op">)</span>,</span>
 <span>  legend.pos <span class="op">=</span> <span class="st">"topright"</span>,</span>
-<span>  density.alpha <span class="op">=</span> <span class="fl">0.6</span></span>
+<span>  density.alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -80,11 +83,19 @@
 
 
 <dt id="arg-colors">colors<a class="anchor" aria-label="anchor" href="#arg-colors"></a></dt>
-<dd><p>Character vector with the colors to use for density and point plotting. 2 values must be supplied if 'background.indices' is supplied. Default is <code>c("#3E4A89FF", "#35B779FF")</code>.</p></dd>
+<dd><p>Character vector with the colors to use for density plotting. 2 values must be supplied if 'background.indices' is supplied. Default is <code>c("#3E4A89FF", "#35B779FF")</code>.</p></dd>
+
+
+<dt id="arg-point-colors">point.colors<a class="anchor" aria-label="anchor" href="#arg-point-colors"></a></dt>
+<dd><p>Character vector with the colors to use for point plotting. 2 values must be supplied if 'background.indices' is supplied. Default is the same as "colors".</p></dd>
 
 
 <dt id="arg-point-alpha">point.alpha<a class="anchor" aria-label="anchor" href="#arg-point-alpha"></a></dt>
 <dd><p>Numeric vector of length 1 &gt;= 0 and &lt;= 1 with the alpha value for color transparency. Default is 0.7. If 0 points are not plotted.</p></dd>
+
+
+<dt id="arg-point-cex">point.cex<a class="anchor" aria-label="anchor" href="#arg-point-cex"></a></dt>
+<dd><p>Numeric vector of length 1 controlling the relative size of the points. Default is 1. If 0 points are not plotted.</p></dd>
 
 
 <dt id="arg-background-indices">background.indices<a class="anchor" aria-label="anchor" href="#arg-background-indices"></a></dt>
