@@ -11,12 +11,15 @@ plot_space(
   basecex = 1,
   title = NULL,
   colors = c("#3E4A89FF", "#35B779FF"),
+  point.colors = colors,
   point.alpha = 0.7,
+  point.cex = 1,
   background.indices = NULL,
   pch = 1,
   labels = c("sub-space", "total space"),
   legend.pos = "topright",
-  density.alpha = 0.6
+  density.alpha = 0.6,
+  ...
 )
 }
 \arguments{
@@ -30,9 +33,13 @@ plot_space(
 
 \item{title}{Character vector of length 1 to be used as the plot title. Default is \code{NULL}.}
 
-\item{colors}{Character vector with the colors to use for density and point plotting. 2 values must be supplied if 'background.indices' is supplied. Default is \code{c("#3E4A89FF", "#35B779FF")}.}
+\item{colors}{Character vector with the colors to use for density plotting. 2 values must be supplied if 'background.indices' is supplied. Default is \code{c("#3E4A89FF", "#35B779FF")}.}
+
+\item{point.colors}{Character vector with the colors to use for point plotting. 2 values must be supplied if 'background.indices' is supplied. Default is the same as "colors".}
 
 \item{point.alpha}{Numeric vector of length 1 >= 0 and <= 1 with the alpha value for color transparency. Default is 0.7. If 0 points are not plotted.}
+
+\item{point.cex}{Numeric vector of length 1 controlling the relative size of the points. Default is 1. If 0 points are not plotted.}
 
 \item{background.indices}{Numeric vector with the indices of the rows in 'X' to be used as background traits space for plotting. Points from 'indices' will be plotted on top of these points.}
 
