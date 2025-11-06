@@ -128,13 +128,16 @@ references:
   authors:
   - family-names: Ripley
     given-names: Brian
-    email: ripley@stats.ox.ac.uk
+    email: Brian.Ripley@R-project.org
+  - family-names: Venables
+    given-names: Bill
   year: '2025'
+  doi: 10.32614/CRAN.package.MASS
 - type: software
   title: vegan
   abstract: 'vegan: Community Ecology Package'
   notes: Imports
-  url: https://github.com/vegandevs/vegan
+  url: https://vegandevs.github.io/vegan/
   repository: https://CRAN.R-project.org/package=vegan
   authors:
   - family-names: Oksanen
@@ -169,6 +172,8 @@ references:
     given-names: Ben
   - family-names: Borcard
     given-names: Daniel
+  - family-names: Borman
+    given-names: Tuomas
   - family-names: Carvalho
     given-names: Gustavo
   - family-names: Chirico
@@ -191,6 +196,8 @@ references:
     given-names: Mark O.
   - family-names: Lahti
     given-names: Leo
+  - family-names: Martino
+    given-names: Cameron
   - family-names: McGlinn
     given-names: Dan
   - family-names: Ouellette
@@ -311,6 +318,23 @@ references:
   year: '2025'
   doi: 10.32614/CRAN.package.sf
 - type: software
+  title: nicheROVER
+  abstract: 'nicheROVER: Niche Region and Niche Overlap Metrics for Multidimensional
+    Ecological Niches'
+  notes: Imports
+  url: https://github.com/mlysy/nicheROVER
+  repository: https://CRAN.R-project.org/package=nicheROVER
+  authors:
+  - family-names: Lysy
+    given-names: Martin
+    email: mlysy@uwaterloo.ca
+  - family-names: Stasko
+    given-names: Ashley D.
+  - family-names: Swanson
+    given-names: Heidi K.
+  year: '2025'
+  doi: 10.32614/CRAN.package.nicheROVER
+- type: software
   title: caret
   abstract: 'caret: Classification and Regression Training'
   notes: Suggests
@@ -325,19 +349,20 @@ references:
   doi: 10.32614/CRAN.package.caret
 - type: software
   title: randomForest
-  abstract: 'randomForest: Breiman and Cutler''s Random Forests for Classification
-    and Regression'
+  abstract: 'randomForest: Breiman and Cutlers Random Forests for Classification and
+    Regression'
   notes: Suggests
   url: https://www.stat.berkeley.edu/~breiman/RandomForests/
   repository: https://CRAN.R-project.org/package=randomForest
   authors:
   - family-names: Breiman
-    given-names: Fortran original by Leo
+    given-names: Leo
   - family-names: Cutler
     given-names: Adele
   - family-names: Liaw
-    given-names: R port by Andy
-  - family-names: Wiener.
+    given-names: Andy
+    email: andy_liaw@merck.com
+  - family-names: Wiener
     given-names: Matthew
   year: '2025'
   doi: 10.32614/CRAN.package.randomForest
