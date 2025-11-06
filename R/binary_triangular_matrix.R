@@ -20,7 +20,7 @@
 #' @author Marcelo Araya-Salas \email{marcelo.araya@@ucr.ac.cr})
 #'
 #' @references 
-#' Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
+#' Araya-Salas, M, K. Odom. & A. Rico-Guevara. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
 #' 
 #' Araya-Salas M, G Smith-vidaurre,  D Mennill, P González-Gómez, J Cahill & T Wright. 2019. Social group signatures in hummingbird displays provide evidence of co-occurrence of vocal and visual learning. Proceedings of the Royal Society B. 286: 20190666.
 #' 

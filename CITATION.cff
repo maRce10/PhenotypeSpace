@@ -19,6 +19,11 @@ authors:
 - family-names: Odom
   given-names: Karan
   email: kjodom@gmail.com
+  orcid: https://orcid.org/0000-0002-9074-135X
+- family-names: Rico-Guevara
+  given-names: Alejandro
+  email: colibri@uw.edu
+  orcid: https://orcid.org/0000-0003-4067-5312
 preferred-citation:
   type: generic
   title: 'PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces'
@@ -41,7 +46,7 @@ references:
   title: pbapply
   abstract: 'pbapply: Adding Progress Bar to ''*apply'' Functions'
   notes: Imports
-  url: https://github.com/psolymos/pbapply
+  url: https://peter.solymos.org/pbapply/
   repository: https://CRAN.R-project.org/package=pbapply
   authors:
   - family-names: Solymos
@@ -123,11 +128,8 @@ references:
   authors:
   - family-names: Ripley
     given-names: Brian
-    email: Brian.Ripley@R-project.org
-  - family-names: Venables
-    given-names: Bill
+    email: ripley@stats.ox.ac.uk
   year: '2025'
-  doi: 10.32614/CRAN.package.MASS
 - type: software
   title: vegan
   abstract: 'vegan: Community Ecology Package'
@@ -203,8 +205,6 @@ references:
     given-names: Cajo J.F.
   - family-names: Weedon
     given-names: James
-  - family-names: Borman
-    given-names: Tuomas
   year: '2025'
   doi: 10.32614/CRAN.package.vegan
 - type: software
@@ -311,23 +311,6 @@ references:
   year: '2025'
   doi: 10.32614/CRAN.package.sf
 - type: software
-  title: nicheROVER
-  abstract: 'nicheROVER: Niche Region and Niche Overlap Metrics for Multidimensional
-    Ecological Niches'
-  notes: Imports
-  url: https://github.com/mlysy/nicheROVER
-  repository: https://CRAN.R-project.org/package=nicheROVER
-  authors:
-  - family-names: Lysy
-    given-names: Martin
-    email: mlysy@uwaterloo.ca
-  - family-names: Stasko
-    given-names: Ashley D.
-  - family-names: Swanson
-    given-names: Heidi K.
-  year: '2025'
-  doi: 10.32614/CRAN.package.nicheROVER
-- type: software
   title: caret
   abstract: 'caret: Classification and Regression Training'
   notes: Suggests
@@ -342,20 +325,19 @@ references:
   doi: 10.32614/CRAN.package.caret
 - type: software
   title: randomForest
-  abstract: 'randomForest: Breiman and Cutlers Random Forests for Classification and
-    Regression'
+  abstract: 'randomForest: Breiman and Cutler''s Random Forests for Classification
+    and Regression'
   notes: Suggests
   url: https://www.stat.berkeley.edu/~breiman/RandomForests/
   repository: https://CRAN.R-project.org/package=randomForest
   authors:
   - family-names: Breiman
-    given-names: Leo
+    given-names: Fortran original by Leo
   - family-names: Cutler
     given-names: Adele
   - family-names: Liaw
-    given-names: Andy
-    email: andy_liaw@merck.com
-  - family-names: Wiener
+    given-names: R port by Andy
+  - family-names: Wiener.
     given-names: Matthew
   year: '2025'
   doi: 10.32614/CRAN.package.randomForest

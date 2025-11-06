@@ -34,7 +34,7 @@
 #' @author Marcelo Araya-Salas \email{marcelo.araya@@ucr.ac.cr})
 #'
 #' @references
-#' Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
+#' Araya-Salas, M, K. Odom. & A. Rico-Guevara. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
 
 rarefact_space_similarity <- function(formula,
                                       data,

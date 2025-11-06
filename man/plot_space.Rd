@@ -50,6 +50,8 @@ plot_space(
 \item{legend.pos}{Controls the position of the legend. Can take the following values: "bottomright", "bottom", "bottomleft", "left", "topleft", "top", "topright" (default), "right" and "center". If \code{NULL} the legend is not plotted.}
 
 \item{density.alpha}{Numeric vector of length 1 >= 0 and <= 1 with the alpha value for color transparency to be used in the highest density regions. Lower density regions will gradually increase in transparency starting from the supplied value. Default is 0.6. If 0 densities are not plotted.}
+
+\item{...}{Additional arguments to be passed to \code{\link[graphics]{plot}} for plot customization.}
 }
 \value{
 A single panel plot in the active graphic device.
@@ -93,7 +95,7 @@ labels = c("G3", "trait space"), legend.pos = "bottomleft", title = "G3")
 }
 }
 \references{
-Araya-Salas, M, & K. Odom. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
+Araya-Salas, M, K. Odom. & A. Rico-Guevara. 2022, PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces R package version 0.1.0.
 }
 \seealso{
 \code{\link{distance_to_rectangular}}, \code{\link{rectangular_to_triangular}}
