@@ -1,0 +1,134 @@
+# Estimates pairwise size differences of phenotypic spaces
+
+`space_size_difference`
+
+## Usage
+
+``` r
+space_size_difference(
+  formula,
+  data,
+  cores = 1,
+  method = "mcp",
+  pb = TRUE,
+  outliers = 0.95,
+  ...
+)
+```
+
+## Arguments
+
+- formula:
+
+  an object of class "formula" (or one that can be coerced to that
+  class).Must follow the form `group ~ dim1 + dim2` where dim1 and dim2
+  are the dimensions of the phenotype space and `group` refers to the
+  group labels.
+
+- data:
+
+  Data frame containing columns for the dimensions of the phenotypic
+  space (numeric) and a categorical or factor column with group labels.
+
+- cores:
+
+  Numeric vector of length 1. Controls whether parallel computing is
+  applied by specifying the number of cores to be used. Default is 1
+  (i.e. no parallel computing).
+
+- method:
+
+  Character vector of length 1. Controls the method to be used for
+  quantifying space size. Three metrics are available:
+
+  - `mcp`: minimum convex polygon area using the function
+    [`mcp`](https://rdrr.io/pkg/adehabitatHR/man/mcp.html). The minimum
+    sample size (per group) must be 2 observations. Only works on
+    2-dimensional spaces.
+
+  - `density`: kernel density area using the function
+    [`kernelUD`](https://rdrr.io/pkg/adehabitatHR/man/kernelUD.html).
+    The minimum sample size (per group) must be 6 observations. Only
+    works on 2-dimensional spaces.
+
+  - `mst`: minimum spanning tree using the function
+    [`spantree`](https://vegandevs.github.io/vegan/reference/spantree.html).
+    The minimum sample size (per group) must be 5 observations. This
+    method is expected to be more robust to the influence of outliers.
+    Any number of dimensions can be used with this method.
+
+  - `ellipse`: Calculate the size of an sub-region assuming an
+    elliptical shape. The axes of the ellipse are estimated from the
+    covariance matrix of the data points in the sub-region. Estimated
+    with the function
+    [`niche.size`](https://rdrr.io/pkg/nicheROVER/man/niche.size.html)
+    from the package 'nicheROVER'. The minimum sample size (per group)
+    must be 1 observation. Any number of dimensions can be used with
+    this method.
+
+- pb:
+
+  Logical argument to control if progress bar is shown. Default is
+  `TRUE`.
+
+- outliers:
+
+  Numeric vector of length 1. A value between 0 and 1 controlling the
+  proportion of outlier observations to be excluded. Outliers are
+  determined as those farthest away from the sub-space centroid.
+
+- ...:
+
+  Additional arguments to be passed to
+  [`space_size`](https://marce10.github.io/PhenotypeSpace/reference/space_size.md)
+  for customizing space size calculation.
+
+## Value
+
+A data frame containing the space size difference for each pair of
+groups.
+
+## Details
+
+The function estimates the pairwise size difference in phenotypic space
+as a simple subtraction between the sizes of two spaces. As such it can
+be seen as an additional metric of similarity complementing those found
+in
+[`space_similarity`](https://marce10.github.io/PhenotypeSpace/reference/space_similarity.md).
+
+## References
+
+Araya-Salas, M, K. Odom. & A. Rico-Guevara. 2022, PhenotypeSpace: an R
+package to quantify and compare phenotypic trait spaces R package
+version 0.1.0.
+
+## See also
+
+[`space_size`](https://marce10.github.io/PhenotypeSpace/reference/space_size.md),
+[`space_similarity`](https://marce10.github.io/PhenotypeSpace/reference/space_similarity.md),
+[`rarefact_space_size_difference`](https://marce10.github.io/PhenotypeSpace/reference/rarefact_space_size_difference.md)
+
+## Author
+
+Marcelo Araya-Salas <marcelo.araya@ucr.ac.cr>)
+
+## Examples
+
+``` r
+{
+# load data
+data("example_space")
+
+# MCP size (try with more iterations on your own data)
+mcp_size <- space_size_difference(
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ method = "mcp")
+
+# MST size
+mcp_size <- space_size_difference(
+ formula = group ~ dimension_1 + dimension_2,
+ data = example_space,
+ method = "mst")
+}
+```
