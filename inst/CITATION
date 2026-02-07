@@ -2,10 +2,10 @@ citHeader("Please cite 'PhenotypeSpace' as follows:")
 
 citEntry(entry = "MISC",
         title = "PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces",
-        author = personList(as.person("M. Araya-Salas"),as.person("K. Odom")),
-        year = "2022",
-#        journal = "Methods in Ecology and Evolution",
-#        url = "http://dx.doi.org/10.1111/2041-210X.12624",
-        textVersion = "Araya-Salas, M., and K. Odom. 2022. PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces. R package version 0.1.0."
+        author = personList(as.person("M. Araya-Salas"),as.person("K. Odom"),as.person("A. Rico-Guevara")),
+        year = "2025",
+#        journal = "",
+#        url = "https://marce10.github.io/PhenotypeSpace/",
+        textVersion = "Araya-Salas, M., K. Odom and A. Rico-Guevara. 2025. PhenotypeSpace: an R package to quantify and compare phenotypic trait spaces. R package version 0.1.1."
 )
 
