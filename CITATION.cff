@@ -32,7 +32,9 @@ preferred-citation:
     given-names: M.
   - family-names: Odom
     given-names: K.
-  year: '2022'
+  - family-names: Rico-Guevara
+    given-names: A.
+  year: '2025'
 repository: https://CRAN.R-project.org/package=PhenotypeSpace
 repository-code: https://github.com/maRce10/PhenotypeSpace/issues/
 url: https://marce10.github.io/PhenotypeSpace/
@@ -56,7 +58,7 @@ references:
   - family-names: Zawadzki
     given-names: Zygmunt
     email: zygmunt@zstat.pl
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.pbapply
 - type: software
   title: viridis
@@ -68,7 +70,7 @@ references:
   - family-names: Garnier
     given-names: Simon
     email: garnier@njit.edu
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.viridis
 - type: software
   title: adehabitatHR
@@ -79,7 +81,7 @@ references:
   - family-names: Calenge
     given-names: Clement
     email: clement.calenge@ofb.gouv.fr
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.adehabitatHR
 - type: software
   title: sp
@@ -94,7 +96,7 @@ references:
   - family-names: Bivand
     given-names: Roger
     email: Roger.Bivand@nhh.no
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.sp
 - type: software
   title: stats
@@ -105,7 +107,7 @@ references:
   institution:
     name: R Foundation for Statistical Computing
     address: Vienna, Austria
-  year: '2025'
+  year: '2026'
 - type: software
   title: raster
   abstract: 'raster: Geographic Data Analysis and Modeling'
@@ -117,7 +119,7 @@ references:
     given-names: Robert J.
     email: r.hijmans@gmail.com
     orcid: https://orcid.org/0000-0001-5872-2872
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.raster
 - type: software
   title: MASS
@@ -131,7 +133,7 @@ references:
     email: Brian.Ripley@R-project.org
   - family-names: Venables
     given-names: Bill
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.MASS
 - type: software
   title: vegan
@@ -212,7 +214,7 @@ references:
     given-names: Cajo J.F.
   - family-names: Weedon
     given-names: James
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.vegan
 - type: software
   title: spatstat.explore
@@ -233,7 +235,7 @@ references:
     given-names: Ege
     email: rubak@math.aau.dk
     orcid: https://orcid.org/0000-0002-6675-533X
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.spatstat.explore
 - type: software
   title: spatstat.geom
@@ -254,7 +256,7 @@ references:
     given-names: Ege
     email: rubak@math.aau.dk
     orcid: https://orcid.org/0000-0002-6675-533X
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.spatstat.geom
 - type: software
   title: proxy
@@ -265,9 +267,10 @@ references:
   - family-names: Meyer
     given-names: David
     email: David.Meyer@R-project.org
+    orcid: https://orcid.org/0000-0002-5196-3048
   - family-names: Buchta
     given-names: Christian
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.proxy
 - type: software
   title: grDevices
@@ -278,7 +281,7 @@ references:
   institution:
     name: R Foundation for Statistical Computing
     address: Vienna, Austria
-  year: '2025'
+  year: '2026'
 - type: software
   title: methods
   abstract: 'R: A Language and Environment for Statistical Computing'
@@ -288,7 +291,7 @@ references:
   institution:
     name: R Foundation for Statistical Computing
     address: Vienna, Austria
-  year: '2025'
+  year: '2026'
 - type: software
   title: rlang
   abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
@@ -302,7 +305,7 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.rlang
 - type: software
   title: sf
@@ -315,7 +318,7 @@ references:
     given-names: Edzer
     email: edzer.pebesma@uni-muenster.de
     orcid: https://orcid.org/0000-0001-8049-7069
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.sf
 - type: software
   title: nicheROVER
@@ -332,7 +335,7 @@ references:
     given-names: Ashley D.
   - family-names: Swanson
     given-names: Heidi K.
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.nicheROVER
 - type: software
   title: caret
@@ -345,7 +348,7 @@ references:
     given-names: Max
     email: mxkuhn@gmail.com
     orcid: https://orcid.org/0000-0003-2402-136X
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.caret
 - type: software
   title: randomForest
@@ -364,7 +367,7 @@ references:
     email: andy_liaw@merck.com
   - family-names: Wiener
     given-names: Matthew
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.randomForest
 - type: software
   title: C50
@@ -378,7 +381,7 @@ references:
     email: mxkuhn@gmail.com
   - family-names: Quinlan
     given-names: Ross
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.C50
 - type: software
   title: plotly
@@ -410,7 +413,7 @@ references:
   - family-names: Despouy
     given-names: Pedro
     email: pedro@plot.ly
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.plotly
 - type: software
   title: 'R: A Language and Environment for Statistical Computing'
@@ -421,6 +424,6 @@ references:
   institution:
     name: R Foundation for Statistical Computing
     address: Vienna, Austria
-  year: '2025'
+  year: '2026'
   version: '>= 4.0.0'
 
