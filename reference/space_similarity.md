@@ -246,7 +246,7 @@ area_dist <- space_similarity(
 # check if caret package and needed dependencies are available
  rlang::check_installed("caret")
  rlang::check_installed("randomForest")
- 
+
 # random forest 3 dimension data, using 5 repeats and repeated CV resampling
 # extract data subset
 sub_data <- example_space[example_space$group %in% c("G1", "G2", "G3"), ]
@@ -259,7 +259,7 @@ space_similarity(
  formula = group ~ dimension_1 + dimension_2 + dimension_3,
  data = sub_data,
  method = "rf",
- trControl = ctrl, 
+ trControl = ctrl,
  tuneLength = 4,
  seed = 123
 )
