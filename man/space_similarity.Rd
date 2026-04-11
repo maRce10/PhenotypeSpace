@@ -33,7 +33,7 @@ space_similarity(
  \item \code{proportional.overlap}: proportion of the joint area of both sub-spaces that overlaps (overlapped area / total area of both groups). Sub-space areas are calculated as the minimum convex polygon. Similarity metric (higher values means more similar). The minimum sample size (per group) must be 5 observations.
  \item \code{distance}: mean euclidean pairwise distance between all observations of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
  \item \code{centroid.distance}: euclidean distance between the centroid of the compared sub-spaces. Dissimilarity metric (higher values means less similar). The minimum sample size (per group) must be 1 observation.
- \item \code{probability}: Bayesian probability of observations of one group being classified as belonging to the other group. Similarity metric (higher values means less similar). The minimum sample size (per group) must be higher the number of dimensions. Probabilities are calculated using the function \code{\link[nicheROVER]{overlap}} from the nicheROVER package. The following values are used internally by \code{\link[nicheROVER]{overlap}}: nreps = 1000, nprob = 1000, kappa = 0, Psi = 0, nu = number of predictors + 1. Random draws are taken from the posterior distribution with Normal-Inverse-Wishart (NIW) prior using the function \code{\link[nicheROVER]{niw.post}}. Take a look at the nicheROVER package for further details on this method.  
+ \item \code{probability}: Bayesian probability of observations of one group being classified as belonging to the other group. Similarity metric (higher values means less similar). The minimum sample size (per group) must be higher the number of dimensions. Probabilities are calculated using the function \code{\link[nicheROVER]{overlap}} from the nicheROVER package. The following values are used internally by \code{\link[nicheROVER]{overlap}}: nreps = 1000, nprob = 1000, kappa = 0, Psi = 0, nu = number of predictors + 1. Random draws are taken from the posterior distribution with Normal-Inverse-Wishart (NIW) prior using the function \code{\link[nicheROVER]{niw.post}}. Take a look at the nicheROVER package for further details on this method.
  }
  In addition, machine learning classification models can also be used for quantify dissimilarity as a measured of how discriminable two groups are. These models can use more than two dimensions to represent phenotyypic spaces. The following classification models can be used: "AdaBag",           "avNNet", "bam", "C5.0", "C5.0Cost", "C5.0Rules", "C5.0Tree", "gam", "gamLoess", "glmnet",   "glmStepAIC", "kernelpls", "kknn", "lda", "lda2", "LogitBoost", "msaenet", "multinom", "nnet",     "null", "ownn", "parRF", "pcaNNet", "pls", "plsRglm", "pre", "qda", "randomGLM", "rf", "rFerns", "rocc", "rotationForest", "rotationForestCp", "RRF", "RRFglobal", "sda", "simpls", "slda", "smda", "snn", "sparseLDA", "svmLinear2", "svmLinearWeights", "treebag", "widekernelpls" and "wsrf". See \url{https://topepo.github.io/caret/train-models-by-tag.html} for details on each of these models. Additional arguments can be pased using \code{...}. Note that some machine learning methods can significantly affect com}
 
@@ -103,7 +103,7 @@ area_dist <- space_similarity(
 # check if caret package and needed dependencies are available
  rlang::check_installed("caret")
  rlang::check_installed("randomForest")
- 
+
 # random forest 3 dimension data, using 5 repeats and repeated CV resampling
 # extract data subset
 sub_data <- example_space[example_space$group \%in\% c("G1", "G2", "G3"), ]
@@ -116,7 +116,7 @@ space_similarity(
  formula = group ~ dimension_1 + dimension_2 + dimension_3,
  data = sub_data,
  method = "rf",
- trControl = ctrl, 
+ trControl = ctrl,
  tuneLength = 4,
  seed = 123
 )
